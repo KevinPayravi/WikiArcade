@@ -70,7 +70,37 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     padding: 1rem;
-    padding-top: 2rem;
+    padding-top: 0;
+}
+
+/* Banner */
+.top-banner {
+    background: #2c0515;
+    border: 1px solid #dc2670;
+    color: var(--text-primary);
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    text-decoration: none;
+    color: inherit;
+    padding: .25rem;
+}
+
+.banner-content:hover {
+    background: rgba(220, 38, 112, 0.1);
+}
+
+.banner-text {
+    letter-spacing: 0.025em;
 }
 
 /* View tabs */
