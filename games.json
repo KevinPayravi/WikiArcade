@@ -1,0 +1,136 @@
+{
+  "games": [
+    {
+      "id": "wikiasteroids",
+      "name": "WikiAsteroids",
+      "emoji": "🚀",
+      "subtitle": "Wikipedia Space Shooter",
+      "description": "Shoot asteroids that are spawned by real-time Wikipedia edits!",
+      "author": "Kevin Payravi",
+      "preview": "wikiasteroids.png",
+      "status": "available",
+      "url": "https://asteroids.wiki"
+    },
+    {
+      "id": "wikitrivia",
+      "name": "WikiTrivia",
+      "emoji": "📅",
+      "subtitle": "Timeline Challenge",
+      "description": "Test your knowledge of historical events by placing them in correct order on a timeline.",
+      "author": "Tom Watson",
+      "preview": "wikitrivia.png",
+      "status": "available",
+      "url": "https://wikitrivia.tomjwatson.com/"
+    },
+    {
+      "id": "factorday",
+      "name": "FactorDay",
+      "emoji": "🧩",
+      "subtitle": "Fun Facts & Puzzles",
+      "description": "Discover interesting facts and solve challenging puzzles in this collection of mini games.",
+      "author": "Azoodle",
+      "preview": "factorday.png",
+      "status": "available",
+      "url": "https://factorday.com/"
+    },
+    {
+      "id": "catfishing",
+      "name": "Catfishing",
+      "emoji": "🎣",
+      "subtitle": "Category Guessing Game",
+      "description": "Guess Wikipedia articles from their categories alone.",
+      "author": "Matthew",
+      "preview": "catfishing.png",
+      "status": "available",
+      "url": "https://catfishing.net/"
+    },
+    {
+      "id": "redactle",
+      "name": "Redactle",
+      "emoji": "🔍",
+      "subtitle": "Daily Wikipedia Puzzle",
+      "description": "Determine the subject of an obfuscated Wikipedia article.",
+      "author": "Ben",
+      "preview": "redactle.png",
+      "status": "available",
+      "url": "https://redactle.net/"
+    },
+    {
+      "id": "faceguesser",
+      "name": "FaceGuesser",
+      "emoji": "👤",
+      "subtitle": "Pixelated Celebrity Quiz",
+      "description": "Identify pixelated celebrity faces.",
+      "author": "Bored Button",
+      "preview": "faceguesser.png",
+      "status": "available",
+      "url": "https://www.faceguesser.com/"
+    },
+    {
+      "id": "wikiwho",
+      "name": "WikiWho?",
+      "emoji": "❓",
+      "subtitle": "Guess the Person from their Wiki!",
+      "description": "Identify famous people from clues and information in their Wikipedia articles.",
+      "author": "Rami Kalai",
+      "preview": "wikiwho.png",
+      "status": "available",
+      "url": "https://www.playwikiwho.com/"
+    },
+    {
+      "id": "wikitext",
+      "name": "Wikipedia: The Text Adventure",
+      "emoji": "📚",
+      "subtitle": "Retro Interactive Fiction",
+      "description": "Experience 1980s-style text adventures generated from live Wikipedia content.",
+      "author": "Kevan Davis",
+      "preview": "wikitextadventure.png",
+      "status": "available",
+      "url": "https://kevan.org/wikitext/"
+    },
+    {
+      "id": "wikle",
+      "name": "Wikle",
+      "emoji": "🎯",
+      "subtitle": "Wikipedia Navigation Challenge",
+      "description": "Navigate from one Wikipedia article to another in the fewest clicks possible.",
+      "author": "Wikle Team",
+      "preview": "wikle.png",
+      "status": "available",
+      "url": "https://www.wikle.io/"
+    },
+    {
+      "id": "guessr",
+      "name": "Guessr",
+      "emoji": "🌍",
+      "subtitle": "Location Guessing Game",
+      "description": "Guess the locations of random Wikidata items.",
+      "author": "blinry",
+      "preview": "guessr.png",
+      "status": "available",
+      "url": "https://guessr.blinry.org/"
+    },
+    {
+      "id": "everythingconnected",
+      "name": "Everything is Connected",
+      "emoji": "🔗",
+      "subtitle": "Connection Puzzle",
+      "description": "Arrange subjects on the board to complete the puzzle.",
+      "author": "Denny Vrandečić",
+      "preview": "everythingconnected.png",
+      "status": "available",
+      "url": "https://eicgame.toolforge.org/"
+    },
+    {
+      "id": "wikiwallstreet",
+      "name": "Wiki Wall Street",
+      "emoji": "💰",
+      "subtitle": "Wikipedia Stock Market",
+      "description": "Trade Wikipedia article 'stocks' based on daily page views.",
+      "author": "Quoc",
+      "preview": "wikiwallstreet.png",
+      "status": "available",
+      "url": "https://wiki-wall-street.com/"
+    }
+  ]
+}

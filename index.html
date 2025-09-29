@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Arcade</title>
+    <meta name="description" content="Discover and play fun games powered by Wikipedia and other wikis.">
+    <meta property="og:site_name" content="Wiki Arcade">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wiki Arcade - A Showcase of Wiki-Powered Games">
+    <meta property="og:description" content="Discover and play fun games powered by Wikipedia and other wikis.">
+    <meta property="og:url" content="https://playwiki.games">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- View Mode Tabs -->
+    <div class="view-tabs" id="viewTabs">
+        <button class="view-tab view-tab-active" data-view="grid" title="Grid View">
+            <span class="tab-icon">📱</span>
+            <span class="tab-text">Grid</span>
+        </button>
+        <button class="view-tab" data-view="scroll" title="Scroll View">
+            <span class="tab-icon">📋</span>
+            <span class="tab-text">Scroll</span>
+        </button>
+        <button class="view-tab" data-view="arcade" title="Arcade View">
+            <span class="tab-icon">🕹️</span>
+            <span class="tab-text">Arcade</span>
+        </button>
+    </div>
+
+    <!-- Default Grid View -->
+    <div class="grid-view" id="gridView">
+        <div class="scroll-container">
+            <header class="main-header">
+                <h1 class="page-title">WIKI ARCADE</h1>
+                <p class="main-subtitle">A Showcase of Wiki-Powered Games</p>
+            </header>
+            
+            <main class="games-grid" id="gamesGrid">
+                <!-- Game cards load here -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Scroll View -->
+    <div class="scroll-view" id="scrollView" style="display: none;">
+        <div class="scroll-container">
+            <header class="main-header">
+                <h1 class="page-title">WIKI ARCADE</h1>
+                <p class="main-subtitle">A Showcase of Wiki-Powered Games</p>
+            </header>
+            
+            <div class="game-selection">
+                <div class="selection-layout">
+                    <div class="game-navigation">
+                        <div class="nav-arrows-container">
+                            <button class="nav-arrow nav-arrow-up" id="navUp">
+                                <span class="arrow-icon">▲</span>
+                            </button>
+                            <button class="nav-arrow nav-arrow-down" id="navDown">
+                                <span class="arrow-icon">▼</span>
+                            </button>
+                        </div>
+                        
+                        <div class="game-list" id="gameList">
+                            <!-- Game items load here -->
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-container">
+                            <img class="game-preview" id="gamePreview" src="" alt="Game Preview" />
+                            <div class="game-info">
+                                <h2 class="selected-game-title text-truncate" id="selectedGameTitle">Select a Game</h2>
+                                <p class="game-description text-truncate" id="gameDescription">Use the arrows to browse through available games.</p>
+                                <button class="game-status" id="gameStatus">Play Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arcade Cabinet View -->
+    <div class="arcade-cabinet" id="arcadeCabinet" style="display: none;">
+        <!-- Marquee -->
+        <div class="arcade-marquee">
+            <div class="marquee-light-border">
+                <div class="marquee-content">
+                    <div class="marquee-stars">
+                        <div class="star">✦</div>
+                        <div class="star">✧</div>
+                        <div class="star">✦</div>
+                        <div class="star">✧</div>
+                        <div class="star">✦</div>
+                        <div class="star">✧</div>
+                        <div class="star">✦</div>
+                        <div class="star">✧</div>
+                        <div class="star">✦</div>
+                        <div class="star">✧</div>
+                    </div>
+                    <h1 class="marquee-title" data-text="WIKI ARCADE">WIKI ARCADE</h1>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Screen -->
+        <div class="screen-bezel">
+            <div class="screen-content">
+                <div class="screen-overlay"></div>
+                <header class="arcade-header">
+                    <div class="lives-display">Lives: ❤️❤️❤️</div>
+                    <div class="credits-display">Credits: 0</div>
+                </header>
+                
+                <!-- Game Cards Display -->
+                <main class="game-display">
+                    <div class="arcade-game-cards-container" id="gameCards">
+                        <!-- Game cards load here -->
+                    </div>
+                </main>
+            </div>
+        </div>
+        
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="tabletop-surface">
+                <div class="controls-section">
+                    <button class="arcade-button arcade-button-left" id="arcadeLeft">
+                        <span class="button-icon">◀</span>
+                        <span class="button-label">PREV</span>
+                    </button>
+                    
+                    <button class="arcade-button arcade-button-play" id="arcadePlay">
+                        <span class="button-icon">▶</span>
+                        <span class="button-label">PLAY</span>
+                    </button>
+                    
+                    <button class="arcade-button arcade-button-right" id="arcadeRight">
+                        <span class="button-icon">▶</span>
+                        <span class="button-label">NEXT</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="front-panel">
+                <button class="power-button" id="powerButton" title="Power On/Off">
+                    <div class="power-led" id="powerLed"></div>
+                </button>
+                
+                <div class="coin-section">
+                    <div class="coin-display" id="coinSlot" title="Insert Coin">
+                        <div class="coin-text">25¢</div>
+                        <div class="coin-instruction">
+                            <div>INSERT COIN</div>
+                            <div>TO PLAY</div>
+                        </div>
+                    </div>
+                    <div class="coin-slot-vertical">
+                        <div class="coin-slot-top"></div>
+                        <div class="coin-slot-bottom"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <p>A <a href="https://hamstro.dev" target="_blank" rel="noopener noreferrer">Hamstro</a> project by <a href="https://kevin.payravi.dev" target="_blank" rel="noopener noreferrer">Kevin Payravi</a></p>
+        <p>Each listed game by its respective author(s)</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
