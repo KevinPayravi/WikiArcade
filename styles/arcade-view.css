@@ -1,12 +1,13 @@
 .arcade-cabinet {
     max-width: 800px;
-    margin: 1rem auto 0;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     perspective: 1000px;
     position: relative;
     overflow: visible;
     transform-origin: top center;
+    max-height: calc(100vh - 140px);
 }
 
 .arcade-marquee {
@@ -16,7 +17,6 @@
     border-radius: 8px 8px 0 0;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
     position: relative;
-    overflow: hidden;
     z-index: 2;
     white-space: nowrap;
 }
@@ -800,30 +800,30 @@ body:has(.arcade-cabinet:not([style*="display: none"])) .site-footer {
 
 @media (max-height: 550px) {
     .arcade-cabinet {
-        transform: scale(0.6);
+        transform: scale(0.55);
     }
 }
 
 @media (max-height: 500px) {
     .arcade-cabinet {
-        transform: scale(0.55);
+        transform: scale(0.5);
     }
 }
 
 @media (max-height: 450px) {
     .arcade-cabinet {
-        transform: scale(0.5);
+        transform: scale(0.45);
     }
 }
 
 @media (max-height: 400px) {
     .arcade-cabinet {
-        transform: scale(0.45);
+        transform: scale(0.4);
     }
 }
 
 @media (max-height: 350px) {
     .arcade-cabinet {
-        transform: scale(0.4);
+        transform: scale(0.35);
     }
 }
