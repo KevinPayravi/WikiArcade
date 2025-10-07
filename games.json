@@ -9,7 +9,8 @@
       "author": "Kevin Payravi",
       "preview": "wikiasteroids.png",
       "status": "available",
-      "url": "https://asteroids.wiki"
+      "url": "https://asteroids.wiki",
+      "tags": ["arcade"]
     },
     {
       "id": "wikitrivia",
@@ -20,7 +21,8 @@
       "author": "Tom Watson",
       "preview": "wikitrivia.png",
       "status": "available",
-      "url": "https://wikitrivia.tomjwatson.com/"
+      "url": "https://wikitrivia.tomjwatson.com/",
+      "tags": ["trivia"]
     },
     {
       "id": "factorday",
@@ -31,7 +33,8 @@
       "author": "Azoodle",
       "preview": "factorday.png",
       "status": "available",
-      "url": "https://factorday.com/"
+      "url": "https://factorday.com/",
+      "tags": ["puzzle", "trivia", "daily"]
     },
     {
       "id": "catfishing",
@@ -42,7 +45,8 @@
       "author": "Matthew",
       "preview": "catfishing.png",
       "status": "available",
-      "url": "https://catfishing.net/"
+      "url": "https://catfishing.net/",
+      "tags": ["puzzle", "daily"]
     },
     {
       "id": "redactle",
@@ -53,7 +57,8 @@
       "author": "Ben",
       "preview": "redactle.png",
       "status": "available",
-      "url": "https://redactle.net/"
+      "url": "https://redactle.net/",
+      "tags": ["puzzle", "daily"]
     },
     {
       "id": "faceguesser",
@@ -64,7 +69,8 @@
       "author": "Bored Button",
       "preview": "faceguesser.png",
       "status": "available",
-      "url": "https://www.faceguesser.com/"
+      "url": "https://www.faceguesser.com/",
+      "tags": ["trivia", "daily"]
     },
     {
       "id": "wikiwho",
@@ -75,7 +81,8 @@
       "author": "Rami Kalai",
       "preview": "wikiwho.png",
       "status": "available",
-      "url": "https://www.playwikiwho.com/"
+      "url": "https://www.playwikiwho.com/",
+      "tags": ["trivia"]
     },
     {
       "id": "wikitext",
@@ -86,7 +93,8 @@
       "author": "Kevan Davis",
       "preview": "wikitextadventure.png",
       "status": "available",
-      "url": "https://kevan.org/wikitext/"
+      "url": "https://kevan.org/wikitext/",
+      "tags": ["adventure"]
     },
     {
       "id": "wikle",
@@ -97,7 +105,8 @@
       "author": "Wikle Team",
       "preview": "wikle.png",
       "status": "available",
-      "url": "https://www.wikle.io/"
+      "url": "https://www.wikle.io/",
+      "tags": ["wikirace", "daily"]
     },
     {
       "id": "guessr",
@@ -108,7 +117,8 @@
       "author": "blinry",
       "preview": "guessr.png",
       "status": "available",
-      "url": "https://guessr.blinry.org/"
+      "url": "https://guessr.blinry.org/",
+      "tags": ["trivia"]
     },
     {
       "id": "everythingconnected",
@@ -119,7 +129,8 @@
       "author": "Denny Vrandečić",
       "preview": "everythingconnected.png",
       "status": "available",
-      "url": "https://eicgame.toolforge.org/"
+      "url": "https://eicgame.toolforge.org/",
+      "tags": ["puzzle"]
     },
     {
       "id": "wikiwallstreet",
@@ -130,7 +141,8 @@
       "author": "Quoc",
       "preview": "wikiwallstreet.png",
       "status": "available",
-      "url": "https://wiki-wall-street.com/"
+      "url": "https://wiki-wall-street.com/",
+      "tags": ["daily"]
     },
     {
       "id": "flagquest",
@@ -141,7 +153,8 @@
       "author": "Katie Filbert",
       "preview": "flagquest.png",
       "status": "available",
-      "url": "https://filbertkm.github.io/flagquest/"
+      "url": "https://filbertkm.github.io/flagquest/",
+      "tags": ["trivia", "wikigamejam"]
     },
     {
       "id": "wikieditbet",
@@ -152,7 +165,8 @@
       "author": "Omar Rizwan",
       "preview": "wikieditbet.png",
       "status": "available",
-      "url": "https://omar.website/wikieditbet/"
+      "url": "https://omar.website/wikieditbet/",
+      "tags": ["wikigamejam"]
     },
     {
       "id": "gallerywall",
@@ -163,7 +177,8 @@
       "author": "Alina Abidi",
       "preview": "gallerywall.png",
       "status": "available",
-      "url": "https://alinaf.github.io/gallery-wall/"
+      "url": "https://alinaf.github.io/gallery-wall/",
+      "tags": ["art", "wikigamejam"]
     },
     {
       "id": "personallife",
@@ -174,7 +189,8 @@
       "author": "Elliott, Sarah, Char",
       "preview": "personallife.png",
       "status": "available",
-      "url": "https://personallife.toolforge.org"
+      "url": "https://personallife.toolforge.org",
+      "tags": ["trivia", "wikigamejam"]
     },
     {
       "id": "daysofoctober",
@@ -185,7 +201,8 @@
       "author": "Lucy Huo, Justin Liang, Amanda Yeh, Melissa Liu",
       "preview": "daysofoctober.png",
       "status": "available",
-      "url": "https://daysofoctober.netlify.app/"
+      "url": "https://daysofoctober.netlify.app/",
+      "tags": ["arcade", "wikigamejam"]
     },
     {
       "id": "sigcovhunter",
@@ -196,7 +213,8 @@
       "author": "User:Habst",
       "preview": "sigcovhunter.png",
       "status": "available",
-      "url": "https://sigcovhunter.toolforge.org/"
+      "url": "https://sigcovhunter.toolforge.org/",
+      "tags": ["contribute", "wikigamejam"]
     },
     {
       "id": "clickipedia",
@@ -207,7 +225,8 @@
       "author": "Isabel Lee",
       "preview": "clickipedia.png",
       "status": "available",
-      "url": "https://isabellee.me/clickipedia/"
+      "url": "https://isabellee.me/clickipedia/",
+      "tags": ["incremental", "wikigamejam"]
     },
     {
       "id": "wikimystery",
@@ -218,7 +237,8 @@
       "author": "Levi Villarreal, Lucy Huo",
       "preview": "wikimystery.png",
       "status": "available",
-      "url": "https://leviv.cool/wikigame/"
+      "url": "https://leviv.cool/wikigame/",
+      "tags": ["puzzle", "trivia", "wikigamejam"]
     },
     {
       "id": "mindpalace",
@@ -229,7 +249,8 @@
       "author": "Adam Aaronson",
       "preview": "mindpalace.png",
       "status": "available",
-      "url": "https://mindpalace.fun"
+      "url": "https://mindpalace.fun",
+      "tags": ["trivia", "incremental", "wikigamejam"]
     },
     {
       "id": "grokipedia",
@@ -240,7 +261,8 @@
       "author": "Daniel Erenrich",
       "preview": "grokipedia.png",
       "status": "available",
-      "url": "https://derenrich.itch.io/grokipedia"
+      "url": "https://derenrich.itch.io/grokipedia",
+      "tags": ["wikigamejam"]
     },
     {
       "id": "portraitsofthinking",
@@ -251,7 +273,8 @@
       "author": "Yu Lee",
       "preview": "portraitsofthinking.png",
       "status": "available",
-      "url": "https://leey611.github.io/wikiportraitsofthinking/"
+      "url": "https://leey611.github.io/wikiportraitsofthinking/",
+      "tags": ["art", "wikigamejam"]
     },
     {
       "id": "horsesanddivorces",
@@ -262,7 +285,8 @@
       "author": "Raquel Fraktas, Derek Miranda, Shristi Singh",
       "preview": "horsesanddivorces.png",
       "status": "available",
-      "url": "https://derekmiranda.itch.io/horses-and-divorces"
+      "url": "https://derekmiranda.itch.io/horses-and-divorces",
+      "tags": ["trivia", "wikigamejam"]
     },
     {
       "id": "wikichain",
@@ -273,7 +297,8 @@
       "author": "Tomás Carlson",
       "preview": "wikichain.png",
       "status": "available",
-      "url": "https://wikichain.org/"
+      "url": "https://wikichain.org/",
+      "tags": ["puzzle", "wikigamejam"]
     },
     {
       "id": "quizbowlgenerator",
@@ -284,7 +309,8 @@
       "author": "Art Chaidarun",
       "preview": "quizbowlgenerator.png",
       "status": "available",
-      "url": "https://artnc.github.io/wikipedia-quiz-bowl-generator/"
+      "url": "https://artnc.github.io/wikipedia-quiz-bowl-generator/",
+      "tags": ["trivia", "wikigamejam"]
     },
     {
       "id": "wikirun",
@@ -295,7 +321,8 @@
       "author": "Wikimedia Foundation",
       "preview": "wikirun.png",
       "status": "available",
-      "url": "https://wikirun-game.toolforge.org/"
+      "url": "https://wikirun-game.toolforge.org/",
+      "tags": ["wikirace", "daily"]
     },
     {
       "id": "thewikigame",
@@ -306,7 +333,8 @@
       "author": "Hey Good Game",
       "preview": "thewikigame.png",
       "status": "available",
-      "url": "https://www.thewikigame.com/"
+      "url": "https://www.thewikigame.com/",
+      "tags": ["wikirace"]
     }
   ]
 }

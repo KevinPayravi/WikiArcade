@@ -89,6 +89,7 @@ class WikiGamesArcade {
         this.powerButton = document.getElementById('powerButton');
         this.coinSlot = document.getElementById('coinSlot');
         this.creditsDisplay = document.querySelector('.credits-display');
+        this.filterControls = document.getElementById('filterControls');
     }
 
     async loadGames() {
@@ -96,9 +97,12 @@ class WikiGamesArcade {
             const response = await fetch('games.json');
             const data = await response.json();
             this.games = this.shuffleArray(data.games);
+            this.allGames = [...this.games];
+            this.currentFilter = 'all';
             
             this.buildAllViews();
             this.setupControls();
+            this.setupFilters();
             this.updateCredits();
             this.selectGame(0);
         } catch (error) {
@@ -286,12 +290,30 @@ class WikiGamesArcade {
         
         this.gamesGrid.innerHTML = '';
         
-        this.games.forEach((game, i) => {
+        // Get filtered games for grid view
+        const filteredGames = this.getFilteredGames();
+        
+        if (filteredGames.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.innerHTML = `
+                <p>No games found for this filter.</p>
+                <p>Try selecting a different category.</p>
+            `;
+            this.gamesGrid.appendChild(noResults);
+            return;
+        }
+        
+        filteredGames.forEach((game, i) => {
             const card = document.createElement('div');
             card.className = 'grid-arcade-game-card';
             
             const emoji = game.emoji ? `<span class="game-emoji">${game.emoji}</span> ` : '';
             const author = game.author ? `<div class="grid-game-author">by ${game.author}</div>` : '';
+            
+            // Add tags display
+            const tags = game.tags && game.tags.length > 0 ? 
+                `<div class="game-tags">${game.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : '';
             
             card.innerHTML = `
                 <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
@@ -299,11 +321,37 @@ class WikiGamesArcade {
                     ${emoji}<span class="game-name">${game.name}</span>
                 </div>
                 <div class="grid-game-description">${game.description}</div>
+                ${tags}
                 ${author}
             `;
             
             card.addEventListener('click', () => this.playGame(game));
             this.gamesGrid.appendChild(card);
+        });
+    }
+
+    getFilteredGames() {
+        if (this.currentFilter === 'all') {
+            return this.allGames;
+        }
+        
+        return this.allGames.filter(game => 
+            game.tags && game.tags.includes(this.currentFilter)
+        );
+    }
+
+    setupFilters() {
+        if (!this.filterControls) return;
+        
+        const filterInputs = this.filterControls.querySelectorAll('input[name="gameFilter"]');
+        
+        filterInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.currentFilter = e.target.value;
+                    this.buildGridView(); // Only rebuild grid view, other views show all games
+                }
+            });
         });
     }
 
