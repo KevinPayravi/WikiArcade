@@ -335,6 +335,30 @@
       "status": "available",
       "url": "https://www.thewikigame.com/",
       "tags": ["wikirace"]
+    },
+    {
+      "id": "wikicrowd",
+      "name": "WikiCrowd",
+      "emoji": "👥",
+      "subtitle": "Image Labeling Contributions",
+      "description": "Quick and easy contributing by labeling images from Wikimedia Commons.",
+      "author": "Addshore",
+      "preview": "wikicrowd.png",
+      "status": "available",
+      "url": "https://wikicrowd.toolforge.org/",
+      "tags": ["contribute"]
+    },
+    {
+      "id": "distributedagame",
+      "name": "Distributed Game",
+      "emoji": "🎯",
+      "subtitle": "Wikidata Contributing Platform",
+      "description": "A platform hosting multiple Wikidata games including merge games, mix'n'match, and article matching challenges.",
+      "author": "Magnus Manske",
+      "preview": "distributedgame.png",
+      "status": "available",
+      "url": "https://wikidata-game.toolforge.org/distributed/#",
+      "tags": ["contribute"]
     }
   ]
 }

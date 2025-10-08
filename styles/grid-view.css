@@ -128,6 +128,7 @@
 .game-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
     margin: 0.75rem 0;
 }
