@@ -359,6 +359,18 @@
       "status": "available",
       "url": "https://wikidata-game.toolforge.org/distributed/#",
       "tags": ["contribute"]
+    },
+    {
+      "id": "cite",
+      "name": "Cite",
+      "emoji": "🤔",
+      "subtitle": "Guessing and Resource Management",
+      "description": "Balance health and mana, play cards to reveal the text and other info, and guess the Wikipedia article title.",
+      "author": "Kovách",
+      "preview": "cite.png",
+      "status": "available",
+      "url": "https://kovach96.itch.io/cite",
+      "tags": ["puzzle"]
     }
   ]
 }
