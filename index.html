@@ -17,8 +17,13 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="games.json" as="fetch" crossorigin>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/grid-view.css">
+    <link rel="stylesheet" href="styles/scroll-view.css">
+    <link rel="stylesheet" href="styles/arcade-view.css">
 </head>
 <body>
     <!-- View Mode Tabs -->
@@ -216,6 +221,6 @@
         <p>Each listed game by its respective author(s) • <a href="https://github.com/KevinPayravi/WikiArcade" target="_blank" rel="noopener">Source Code</a></p>
     </footer>
     
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
