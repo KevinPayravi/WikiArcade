@@ -136,6 +136,8 @@ class WikiGamesArcade {
         
         this.gameCards.innerHTML = '';
         
+        const fragment = document.createDocumentFragment();
+        
         this.games.forEach((game, i) => {
             const card = document.createElement('div');
             card.className = 'arcade-game-card';
@@ -153,33 +155,51 @@ class WikiGamesArcade {
                 ${author}
             `;
             
-            card.addEventListener('click', () => {
+            fragment.appendChild(card);
+        });
+        
+        this.gameCards.appendChild(fragment);
+        
+        // Event delegation
+        if (!this.arcadeCardsDelegated) {
+            this.gameCards.addEventListener('click', (e) => {
+                const card = e.target.closest('.arcade-game-card');
+                if (!card) return;
+                
+                const i = parseInt(card.dataset.index);
                 if (this.selectedIndex === i) {
-                    this.playGame(game);
+                    this.playGame(this.games[i]);
                 } else {
                     this.selectGame(i);
                 }
             });
-            this.gameCards.appendChild(card);
-        });
+            this.arcadeCardsDelegated = true;
+        }
         
         this.positionArcadeCards();
     }
 
     positionArcadeCards() {
-        const cards = document.querySelectorAll('.arcade-game-card');
+        if (!this.gameCards) return;
         
-        cards.forEach((card, i) => {
-            const distance = i - this.selectedIndex;
-            const isSelected = i === this.selectedIndex;
-            
-            const offset = distance * 100;
-            const scale = isSelected ? 1 : 0.85;
-            const zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
-            
-            card.style.transform = `translateX(${offset}px) scale(${scale})`;
-            card.style.zIndex = zIndex;
-            card.classList.toggle('selected', isSelected);
+        const cards = this.gameCards.children;
+        if (cards.length === 0) return;
+        
+        // Batch all DOM writes
+        requestAnimationFrame(() => {
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const distance = i - this.selectedIndex;
+                const isSelected = i === this.selectedIndex;
+                
+                const offset = distance * 100;
+                const scale = isSelected ? 1 : 0.85;
+                const zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
+                
+                card.style.transform = `translateX(${offset}px) scale(${scale})`;
+                card.style.zIndex = zIndex;
+                card.classList.toggle('selected', isSelected);
+            }
         });
     }
 
@@ -187,6 +207,8 @@ class WikiGamesArcade {
         if (!this.gameList) return;
         
         this.gameList.innerHTML = '';
+        
+        const fragment = document.createDocumentFragment();
         
         this.games.forEach((game, i) => {
             const item = document.createElement('div');
@@ -201,37 +223,55 @@ class WikiGamesArcade {
                 <div class="game-subtitle">${subtitle}</div>
             `;
             
-            item.addEventListener('click', () => this.selectGame(i));
-            this.gameList.appendChild(item);
+            fragment.appendChild(item);
         });
+        
+        this.gameList.appendChild(fragment);
+        
+        // Event delegation
+        if (!this.scrollItemsDelegated) {
+            this.gameList.addEventListener('click', (e) => {
+                const item = e.target.closest('.game-item');
+                if (!item) return;
+                
+                const i = parseInt(item.dataset.index);
+                this.selectGame(i);
+            });
+            this.scrollItemsDelegated = true;
+        }
         
         this.positionScrollItems();
     }
 
     positionScrollItems() {
-        const items = document.querySelectorAll('.game-item');
+        if (!this.gameList) return;
+        
+        const items = this.gameList.children;
+        if (items.length === 0) return;
+        
         const gameCount = this.games.length;
         const visibleCount = 5;
         const halfVisible = Math.floor(visibleCount / 2);
         
-        items.forEach((item, i) => {
-            let distance = i - this.selectedIndex;
-            if (distance > gameCount / 2) distance -= gameCount;
-            if (distance < -gameCount / 2) distance += gameCount;
-            
-            item.style.setProperty('--distance', distance);
-            
-            // Hide faraway items
-            if (Math.abs(distance) > halfVisible) {
-                item.style.opacity = '0';
-                item.style.pointerEvents = 'none';
-            } else {
-                item.style.opacity = '';
-                item.style.pointerEvents = '';
+        // Batch all DOM writes
+        requestAnimationFrame(() => {
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                let distance = i - this.selectedIndex;
+                if (distance > gameCount / 2) distance -= gameCount;
+                if (distance < -gameCount / 2) distance += gameCount;
+                
+                item.style.setProperty('--distance', distance);
+                
+                // Hide faraway items
+                const isHidden = Math.abs(distance) > halfVisible;
+                item.style.opacity = isHidden ? '0' : '';
+                item.style.pointerEvents = isHidden ? 'none' : '';
+                
+                item.classList.toggle('selected', i === this.selectedIndex);
             }
-            
-            item.classList.toggle('selected', i === this.selectedIndex);
         });
+        
         this.updatePreview();
     }
 
@@ -304,9 +344,12 @@ class WikiGamesArcade {
             return;
         }
         
+        const fragment = document.createDocumentFragment();
+        
         filteredGames.forEach((game, i) => {
             const card = document.createElement('div');
             card.className = 'grid-arcade-game-card';
+            card.dataset.gameId = game.id;
             
             const emoji = game.emoji ? `<span class="game-emoji">${game.emoji}</span> ` : '';
             const author = game.author ? `<div class="grid-game-author">by ${game.author}</div>` : '';
@@ -325,9 +368,23 @@ class WikiGamesArcade {
                 ${author}
             `;
             
-            card.addEventListener('click', () => this.playGame(game));
-            this.gamesGrid.appendChild(card);
+            fragment.appendChild(card);
         });
+        
+        this.gamesGrid.appendChild(fragment);
+        
+        // Event delegation
+        if (!this.gridCardsDelegated) {
+            this.gamesGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.grid-arcade-game-card');
+                if (!card) return;
+                
+                const gameId = card.dataset.gameId;
+                const game = this.allGames.find(g => g.id === gameId);
+                if (game) this.playGame(game);
+            });
+            this.gridCardsDelegated = true;
+        }
     }
 
     getFilteredGames() {
@@ -462,10 +519,16 @@ class WikiGamesArcade {
     }
 
     handleResize() {
-        clearTimeout(this.resizeTimer);
+        if (this.resizeTimer) clearTimeout(this.resizeTimer);
+        
         this.resizeTimer = setTimeout(() => {
-            this.positionArcadeCards();
-            this.positionScrollItems();
+            // Only update the currently visible view
+            if (window.viewManager && window.viewManager.currentView === 'arcade') {
+                this.positionArcadeCards();
+            } else if (window.viewManager && window.viewManager.currentView === 'scroll') {
+                this.positionScrollItems();
+            }
+            this.resizeTimer = null;
         }, 150);
     }
 
@@ -542,6 +605,6 @@ class WikiGamesArcade {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ViewManager();
-    new WikiGamesArcade();
+    window.viewManager = new ViewManager();
+    window.wikiGamesArcade = new WikiGamesArcade();
 });
