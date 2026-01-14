@@ -8,6 +8,9 @@
     overflow: visible;
     transform-origin: top center;
     max-height: calc(100vh - 140px);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .arcade-marquee {
@@ -291,6 +294,8 @@
     height: 340px;
     position: relative;
     perspective: 1000px;
+    touch-action: pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
 }
 
 .arcade-game-card {
@@ -303,25 +308,31 @@
     padding: 1rem;
     backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
     transform-style: preserve-3d;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     word-wrap: break-word;
+    will-change: transform;
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .arcade-game-card.selected {
     border-color: rgba(59, 130, 246, 0.4);
     box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     z-index: 10;
-    transform: translateZ(0) scale(1);
     max-height: 365px;
 }
 
 .arcade-game-card:not(.selected) {
-    transform: translateZ(-50px) scale(0.85);
+    will-change: auto;
 }
 
 .arcade-game-card-image {
@@ -770,60 +781,60 @@ body:has(.arcade-cabinet:not([style*="display: none"])) .site-footer {
 /* Arcade cabinet height scaling */
 @media (max-height: 800px) {
     .arcade-cabinet {
-        transform: scale(0.9);
+        transform: scale(0.9) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 750px) {
     .arcade-cabinet {
-        transform: scale(0.85);
+        transform: scale(0.85) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 700px) {
     .arcade-cabinet {
-        transform: scale(0.8);
+        transform: scale(0.8) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 650px) {
     .arcade-cabinet {
-        transform: scale(0.75);
+        transform: scale(0.75) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 600px) {
     .arcade-cabinet {
-        transform: scale(0.65);
+        transform: scale(0.65) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 550px) {
     .arcade-cabinet {
-        transform: scale(0.55);
+        transform: scale(0.55) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 500px) {
     .arcade-cabinet {
-        transform: scale(0.5);
+        transform: scale(0.5) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 450px) {
     .arcade-cabinet {
-        transform: scale(0.45);
+        transform: scale(0.45) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 400px) {
     .arcade-cabinet {
-        transform: scale(0.4);
+        transform: scale(0.4) translate3d(0, 0, 0);
     }
 }
 
 @media (max-height: 350px) {
     .arcade-cabinet {
-        transform: scale(0.35);
+        transform: scale(0.35) translate3d(0, 0, 0);
     }
 }

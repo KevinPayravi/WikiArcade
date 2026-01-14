@@ -185,22 +185,19 @@ class WikiGamesArcade {
         const cards = this.gameCards.children;
         if (cards.length === 0) return;
         
-        // Batch all DOM writes
-        requestAnimationFrame(() => {
-            for (let i = 0; i < cards.length; i++) {
-                const card = cards[i];
-                const distance = i - this.selectedIndex;
-                const isSelected = i === this.selectedIndex;
-                
-                const offset = distance * 100;
-                const scale = isSelected ? 1 : 0.85;
-                const zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
-                
-                card.style.transform = `translateX(${offset}px) scale(${scale})`;
-                card.style.zIndex = zIndex;
-                card.classList.toggle('selected', isSelected);
-            }
-        });
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
+            const distance = i - this.selectedIndex;
+            const isSelected = i === this.selectedIndex;
+            
+            const offset = distance * 100;
+            const scale = isSelected ? 1 : 0.85;
+            const zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
+            
+            card.style.transform = `translate3d(${offset}px, 0, 0) scale(${scale})`;
+            card.style.zIndex = zIndex;
+            card.classList.toggle('selected', isSelected);
+        }
     }
 
     buildScrollView() {
@@ -253,24 +250,21 @@ class WikiGamesArcade {
         const visibleCount = 5;
         const halfVisible = Math.floor(visibleCount / 2);
         
-        // Batch all DOM writes
-        requestAnimationFrame(() => {
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                let distance = i - this.selectedIndex;
-                if (distance > gameCount / 2) distance -= gameCount;
-                if (distance < -gameCount / 2) distance += gameCount;
-                
-                item.style.setProperty('--distance', distance);
-                
-                // Hide faraway items
-                const isHidden = Math.abs(distance) > halfVisible;
-                item.style.opacity = isHidden ? '0' : '';
-                item.style.pointerEvents = isHidden ? 'none' : '';
-                
-                item.classList.toggle('selected', i === this.selectedIndex);
-            }
-        });
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            let distance = i - this.selectedIndex;
+            if (distance > gameCount / 2) distance -= gameCount;
+            if (distance < -gameCount / 2) distance += gameCount;
+            
+            item.style.setProperty('--distance', distance);
+            
+            // Hide faraway items
+            const isHidden = Math.abs(distance) > halfVisible;
+            item.style.opacity = isHidden ? '0' : '';
+            item.style.pointerEvents = isHidden ? 'none' : '';
+            
+            item.classList.toggle('selected', i === this.selectedIndex);
+        }
         
         this.updatePreview();
     }
