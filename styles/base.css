@@ -110,7 +110,7 @@ body {
     margin-bottom: 2rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border-primary);
-    border-radius: var(--radius-lg);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     padding: 0.25rem;
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-lg);
