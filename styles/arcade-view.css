@@ -308,20 +308,21 @@
     padding: 1rem;
     backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s ease,
-                border-color 0.3s ease;
-    transform-style: preserve-3d;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     word-wrap: break-word;
-    will-change: transform;
-    -webkit-transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
+    contain: layout style paint;
+    --card-offset: 0;
+    --card-scale: 1;
+    transform: translate3d(calc(var(--card-offset) * 1px), 0, 0) scale(var(--card-scale));
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
 }
 
 .arcade-game-card.selected {
@@ -329,10 +330,6 @@
     box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     z-index: 10;
     max-height: 365px;
-}
-
-.arcade-game-card:not(.selected) {
-    will-change: auto;
 }
 
 .arcade-game-card-image {
@@ -392,6 +389,9 @@
     flex-shrink: 0;
     margin: 0 1.5rem 1.5rem 1.5rem;
     perspective: 800px;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .tabletop-surface {
@@ -408,6 +408,8 @@
     transform-origin: bottom center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1);
     z-index: 2;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .front-panel {
@@ -594,9 +596,13 @@
     background: radial-gradient(circle at 25% 25%, #ff6b6b, #cc5555 70%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     cursor: pointer;
-    transition: all 0.1s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     position: relative;
     flex-shrink: 0;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 .arcade-button-left,
@@ -670,11 +676,24 @@ body:has(.arcade-cabinet:not([style*="display: none"])) .site-footer {
 /* Touch devices */
 @media (hover: none) and (pointer: coarse) {
     .arcade-button:hover {
-        transform: none;
+        transform: translateZ(0);
     }
 
     .arcade-game-card {
         -webkit-tap-highlight-color: rgba(0, 245, 255, 0.2);
+        transition: transform 0.15s ease,
+                    box-shadow 0.15s ease,
+                    border-color 0.15s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .arcade-button {
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    
+    .arcade-header .credits-display,
+    .arcade-header .lives-display {
+        backdrop-filter: blur(5px);
     }
 }
 

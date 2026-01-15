@@ -13,49 +13,42 @@ class ViewManager {
     }
     
     setupTabs() {
-        const tabs = this.views.tabs?.querySelectorAll('.view-tab');
-        if (!tabs) return;
+        if (!this.views.tabs) return;
         
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                this.showView(tab.dataset.view);
-            });
+        // Event delegation for tabs
+        this.views.tabs.addEventListener('click', (e) => {
+            const tab = e.target.closest('.view-tab');
+            if (!tab) return;
+            this.showView(tab.dataset.view);
         });
     }
     
     showView(viewName) {
         if (!['grid', 'scroll', 'arcade'].includes(viewName)) return;
+        if (this.currentView === viewName) return; // Skip if already showing
 
         this.currentView = viewName;
         
-        // Hide all views
-        this.views.grid.style.display = 'none';
-        this.views.scroll.style.display = 'none';
-        this.views.arcade.style.display = 'none';
-        
-        // Show selected view
-        if (viewName === 'arcade') {
-            this.views.arcade.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        } else {
-            this.views[viewName].style.display = 'block';
-            document.body.style.overflow = 'auto';
-        }
+        // Batch DOM updates
+        const isArcade = viewName === 'arcade';
+        this.views.grid.style.display = viewName === 'grid' ? 'block' : 'none';
+        this.views.scroll.style.display = viewName === 'scroll' ? 'block' : 'none';
+        this.views.arcade.style.display = isArcade ? 'flex' : 'none';
+        document.body.style.overflow = isArcade ? 'hidden' : 'auto';
 
-        // Scroll-to-top on view change
-        requestAnimationFrame(() => {
-            setTimeout(() => {
+        // Scroll-to-top on view change (only for non-arcade)
+        if (!isArcade) {
+            requestAnimationFrame(() => {
                 const bodyPaddingTop = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
-                window.scrollTo({ 
-                    top: -bodyPaddingTop, 
-                    behavior: 'smooth' 
-                });
-            }, 0);
-        });
+                window.scrollTo({ top: -bodyPaddingTop, behavior: 'smooth' });
+            });
+        }
         
-        // Update tab highlighting
-        const tabs = this.views.tabs?.querySelectorAll('.view-tab');
-        tabs?.forEach(tab => {
+        // Update tab highlighting - use cached tabs if available
+        if (!this.tabElements) {
+            this.tabElements = this.views.tabs?.querySelectorAll('.view-tab');
+        }
+        this.tabElements?.forEach(tab => {
             tab.classList.toggle('view-tab-active', tab.dataset.view === viewName);
         });
     }
@@ -90,6 +83,8 @@ class WikiGamesArcade {
         this.coinSlot = document.getElementById('coinSlot');
         this.creditsDisplay = document.querySelector('.credits-display');
         this.filterControls = document.getElementById('filterControls');
+        this.arcadeView = document.getElementById('arcadeCabinet'); // Cache arcade view
+        this.cabinet = document.querySelector('.arcade-cabinet'); // Cache cabinet
     }
 
     async loadGames() {
@@ -185,18 +180,24 @@ class WikiGamesArcade {
         const cards = this.gameCards.children;
         if (cards.length === 0) return;
         
+        const selectedIdx = this.selectedIndex;
+        
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
-            const distance = i - this.selectedIndex;
-            const isSelected = i === this.selectedIndex;
+            const distance = i - selectedIdx;
+            const isSelected = i === selectedIdx;
             
-            const offset = distance * 100;
-            const scale = isSelected ? 1 : 0.85;
-            const zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
+            // Batch style updates
+            card.style.setProperty('--card-offset', distance * 100);
+            card.style.setProperty('--card-scale', isSelected ? 1 : 0.85);
+            card.style.zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
             
-            card.style.transform = `translate3d(${offset}px, 0, 0) scale(${scale})`;
-            card.style.zIndex = zIndex;
-            card.classList.toggle('selected', isSelected);
+            // Toggle class more efficiently
+            if (isSelected && !card.classList.contains('selected')) {
+                card.classList.add('selected');
+            } else if (!isSelected && card.classList.contains('selected')) {
+                card.classList.remove('selected');
+            }
         }
     }
 
@@ -293,9 +294,8 @@ class WikiGamesArcade {
         const targetGame = game || this.games[this.selectedIndex];
         if (!targetGame) return;
         
-        // Check if arcade view is active
-        const arcadeView = document.getElementById('arcadeCabinet');
-        const inArcadeMode = arcadeView && arcadeView.style.display !== 'none';
+        // Check if arcade view is active (use cached element)
+        const inArcadeMode = this.arcadeView && this.arcadeView.style.display !== 'none';
         
         if (inArcadeMode) {
             if (!this.isPowered) return;
@@ -409,10 +409,20 @@ class WikiGamesArcade {
     selectGame(index) {
         if (index < 0 || index >= this.games.length) return;
         
+        // Throttle rapid selections
+        if (this.isTransitioning) return;
+        
         this.selectedIndex = index;
+        this.isTransitioning = true;
+        
         this.positionArcadeCards();
         this.positionScrollItems();
         this.updateButtons();
+        
+        // Reset throttle after transition completes
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 100);
     }
 
     updateButtons() {
@@ -487,7 +497,7 @@ class WikiGamesArcade {
         
         // Keyboard controls
         document.addEventListener('keydown', (e) => this.handleKeys(e));
-        window.addEventListener('resize', () => this.handleResize());
+        window.addEventListener('resize', () => this.handleResize(), { passive: true });
     }
 
     handleKeys(e) {
@@ -557,17 +567,16 @@ class WikiGamesArcade {
 
     togglePower() {
         this.isPowered = !this.isPowered;
-        const cabinet = document.querySelector('.arcade-cabinet');
         
         if (this.isPowered) {
-            cabinet?.classList.remove('powered-off');
+            this.cabinet?.classList.remove('powered-off');
             this.powerButton?.classList.remove('off');
             
             if (this.credits === 0) {
                 setTimeout(() => this.highlightCoinSlot(), 500);
             }
         } else {
-            cabinet?.classList.add('powered-off');
+            this.cabinet?.classList.add('powered-off');
             this.powerButton?.classList.add('off');
             this.coinSlot?.classList.remove('needs-coins');
         }
