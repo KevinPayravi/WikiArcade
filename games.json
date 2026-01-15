@@ -10,7 +10,7 @@
       "preview": "wikiasteroids.png",
       "status": "available",
       "url": "https://asteroids.wiki",
-      "tags": ["arcade"]
+      "tags": ["arcade", "mobile"]
     },
     {
       "id": "wikitrivia",
@@ -22,7 +22,7 @@
       "preview": "wikitrivia.png",
       "status": "available",
       "url": "https://wikitrivia.tomjwatson.com/",
-      "tags": ["trivia"]
+      "tags": ["trivia", "mobile"]
     },
     {
       "id": "factorday",
@@ -34,7 +34,7 @@
       "preview": "factorday.png",
       "status": "available",
       "url": "https://factorday.com/",
-      "tags": ["puzzle", "trivia", "daily"]
+      "tags": ["puzzle", "trivia", "daily", "mobile"]
     },
     {
       "id": "catfishing",
@@ -46,7 +46,7 @@
       "preview": "catfishing.png",
       "status": "available",
       "url": "https://catfishing.net/",
-      "tags": ["puzzle", "daily"]
+      "tags": ["puzzle", "daily", "mobile"]
     },
     {
       "id": "redactle",
@@ -58,7 +58,7 @@
       "preview": "redactle.png",
       "status": "available",
       "url": "https://redactle.net/",
-      "tags": ["puzzle", "daily"]
+      "tags": ["puzzle", "daily", "mobile"]
     },
     {
       "id": "faceguesser",
@@ -70,7 +70,7 @@
       "preview": "faceguesser.png",
       "status": "available",
       "url": "https://www.faceguesser.com/",
-      "tags": ["trivia", "daily"]
+      "tags": ["trivia", "daily", "mobile"]
     },
     {
       "id": "wikiwho",
@@ -82,7 +82,7 @@
       "preview": "wikiwho.png",
       "status": "available",
       "url": "https://www.playwikiwho.com/",
-      "tags": ["trivia"]
+      "tags": ["trivia", "mobile"]
     },
     {
       "id": "wikitext",
@@ -94,7 +94,7 @@
       "preview": "wikitextadventure.png",
       "status": "available",
       "url": "https://kevan.org/wikitext/",
-      "tags": ["adventure"]
+      "tags": ["adventure", "mobile"]
     },
     {
       "id": "wikle",
@@ -106,7 +106,7 @@
       "preview": "wikle.png",
       "status": "available",
       "url": "https://www.wikle.io/",
-      "tags": ["wikirace", "daily"]
+      "tags": ["wikirace", "daily", "mobile"]
     },
     {
       "id": "guessr",
@@ -130,7 +130,7 @@
       "preview": "everythingconnected.png",
       "status": "available",
       "url": "https://eicgame.toolforge.org/",
-      "tags": ["puzzle"]
+      "tags": ["puzzle", "mobile"]
     },
     {
       "id": "wikiwallstreet",
@@ -142,7 +142,7 @@
       "preview": "wikiwallstreet.png",
       "status": "available",
       "url": "https://wiki-wall-street.com/",
-      "tags": ["daily"]
+      "tags": ["daily", "mobile"]
     },
     {
       "id": "flagquest",
@@ -154,7 +154,7 @@
       "preview": "flagquest.png",
       "status": "available",
       "url": "https://filbertkm.github.io/flagquest/",
-      "tags": ["trivia", "wikigamejam"]
+      "tags": ["trivia", "wikigamejam", "mobile"]
     },
     {
       "id": "wikieditbet",
@@ -166,7 +166,7 @@
       "preview": "wikieditbet.png",
       "status": "available",
       "url": "https://omar.website/wikieditbet/",
-      "tags": ["wikigamejam"]
+      "tags": ["wikigamejam", "mobile"]
     },
     {
       "id": "gallerywall",
@@ -190,7 +190,7 @@
       "preview": "personallife.png",
       "status": "available",
       "url": "https://personallife.toolforge.org",
-      "tags": ["trivia", "wikigamejam"]
+      "tags": ["trivia", "wikigamejam", "mobile"]
     },
     {
       "id": "daysofoctober",
@@ -214,7 +214,7 @@
       "preview": "sigcovhunter.png",
       "status": "available",
       "url": "https://sigcovhunter.toolforge.org/",
-      "tags": ["contribute", "wikigamejam"]
+      "tags": ["contribute", "wikigamejam", "mobile"]
     },
     {
       "id": "clickipedia",
@@ -250,7 +250,7 @@
       "preview": "mindpalace.png",
       "status": "available",
       "url": "https://mindpalace.fun",
-      "tags": ["trivia", "incremental", "wikigamejam"]
+      "tags": ["trivia", "incremental", "wikigamejam", "mobile"]
     },
     {
       "id": "grokipedia",
@@ -274,7 +274,7 @@
       "preview": "portraitsofthinking.png",
       "status": "available",
       "url": "https://leey611.github.io/wikiportraitsofthinking/",
-      "tags": ["art", "wikigamejam"]
+      "tags": ["art", "wikigamejam", "mobile"]
     },
     {
       "id": "horsesanddivorces",
@@ -298,7 +298,7 @@
       "preview": "wikichain.png",
       "status": "available",
       "url": "https://wikichain.org/",
-      "tags": ["puzzle", "wikigamejam"]
+      "tags": ["puzzle", "wikigamejam", "mobile"]
     },
     {
       "id": "quizbowlgenerator",
@@ -310,7 +310,7 @@
       "preview": "quizbowlgenerator.png",
       "status": "available",
       "url": "https://artnc.github.io/wikipedia-quiz-bowl-generator/",
-      "tags": ["trivia", "wikigamejam"]
+      "tags": ["trivia", "wikigamejam", "mobile"]
     },
     {
       "id": "wikirun",
@@ -322,7 +322,7 @@
       "preview": "wikirun.png",
       "status": "available",
       "url": "https://wikirun-game.toolforge.org/",
-      "tags": ["wikirace", "daily"]
+      "tags": ["wikirace", "daily", "mobile"]
     },
     {
       "id": "thewikigame",
@@ -334,7 +334,7 @@
       "preview": "thewikigame.png",
       "status": "available",
       "url": "https://www.thewikigame.com/",
-      "tags": ["wikirace"]
+      "tags": ["wikirace", "mobile"]
     },
     {
       "id": "wikicrowd",
@@ -346,7 +346,7 @@
       "preview": "wikicrowd.png",
       "status": "available",
       "url": "https://wikicrowd.toolforge.org/",
-      "tags": ["contribute"]
+      "tags": ["contribute", "mobile"]
     },
     {
       "id": "distributedagame",
@@ -358,7 +358,7 @@
       "preview": "distributedgame.png",
       "status": "available",
       "url": "https://wikidata-game.toolforge.org/distributed/#",
-      "tags": ["contribute"]
+      "tags": ["contribute", "mobile"]
     },
     {
       "id": "cite",
