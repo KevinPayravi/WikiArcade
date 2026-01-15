@@ -422,7 +422,7 @@ class WikiGamesArcade {
         // Reset throttle after transition completes
         setTimeout(() => {
             this.isTransitioning = false;
-        }, 100);
+        }, 150);
     }
 
     updateButtons() {

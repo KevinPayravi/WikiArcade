@@ -302,11 +302,10 @@
     position: absolute;
     height: 280px;
     width: 380px;
-    background: var(--gradient-bg-secondary);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
     border: 2px solid rgba(148, 163, 184, 0.2);
     border-radius: 16px;
     padding: 1rem;
-    backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     cursor: pointer;
     display: flex;
@@ -317,12 +316,11 @@
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
     contain: layout style paint;
+    isolation: isolate;
     --card-offset: 0;
     --card-scale: 1;
     transform: translate3d(calc(var(--card-offset) * 1px), 0, 0) scale(var(--card-scale));
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .arcade-game-card.selected {
@@ -330,6 +328,7 @@
     box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     z-index: 10;
     max-height: 365px;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .arcade-game-card-image {
@@ -681,10 +680,11 @@ body:has(.arcade-cabinet:not([style*="display: none"])) .site-footer {
 
     .arcade-game-card {
         -webkit-tap-highlight-color: rgba(0, 245, 255, 0.2);
-        transition: transform 0.15s ease,
-                    box-shadow 0.15s ease,
-                    border-color 0.15s ease;
-        backdrop-filter: blur(10px);
+        transition: transform 0.15s linear;
+    }
+    
+    .arcade-game-card.selected {
+        transition: transform 0.15s linear;
     }
     
     .arcade-button {
