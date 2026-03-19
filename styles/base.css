@@ -48,6 +48,10 @@
     /* Common gradients */
     --gradient-title: linear-gradient(135deg, var(--arcade-blue) 0%, var(--neon-cyan) 60%, var(--arcade-blue) 100%);
     --gradient-bg-primary: radial-gradient(circle at top, rgba(79, 70, 229, 0.25) 0%, transparent 55%), radial-gradient(circle at bottom, rgba(236, 72, 153, 0.2) 0%, transparent 45%), var(--bg-primary);
+
+    /* Accents */
+    --accent-primary: var(--arcade-blue);
+    --accent-primary-alpha: rgba(0, 102, 204, 0.3);
 }
 
 /* Utilities */

@@ -326,32 +326,21 @@ class WikiGamesArcade {
         
         this.gamesGrid.innerHTML = '';
         
-        // Get filtered games for grid view
-        const filteredGames = this.getFilteredGames();
-        
-        if (filteredGames.length === 0) {
-            const noResults = document.createElement('div');
-            noResults.className = 'no-results';
-            noResults.innerHTML = `
-                <p>No games found for this filter.</p>
-                <p>Try selecting a different category.</p>
-            `;
-            this.gamesGrid.appendChild(noResults);
-            return;
-        }
-        
         const fragment = document.createDocumentFragment();
         
-        filteredGames.forEach((game, i) => {
+        this.allGames.forEach((game) => {
             const card = document.createElement('div');
             card.className = 'grid-arcade-game-card';
             card.dataset.gameId = game.id;
+            if (game.tags && game.tags.length > 0) {
+                card.dataset.tags = game.tags.join(',');
+            }
             
             const emoji = game.emoji ? `<span class="game-emoji">${game.emoji}</span> ` : '';
             const author = game.author ? `<div class="grid-game-author">by ${game.author}</div>` : '';
             
             // Add tags display
-            const tags = game.tags && game.tags.length > 0 ? 
+            const tagsHtml = game.tags && game.tags.length > 0 ? 
                 `<div class="game-tags">${game.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : '';
             
             card.innerHTML = `
@@ -360,7 +349,7 @@ class WikiGamesArcade {
                     ${emoji}<span class="game-name">${game.name}</span>
                 </div>
                 <div class="grid-game-description">${game.description}</div>
-                ${tags}
+                ${tagsHtml}
                 ${author}
             `;
             
@@ -380,6 +369,42 @@ class WikiGamesArcade {
                 if (game) this.playGame(game);
             });
             this.gridCardsDelegated = true;
+        }
+        
+        // Apply current filter state
+        this.filterGridView();
+    }
+
+    filterGridView() {
+        if (!this.gamesGrid) return;
+        
+        const cards = this.gamesGrid.querySelectorAll('.grid-arcade-game-card');
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+            const tags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+            const passesCategory = this.currentFilter === 'all' || tags.includes(this.currentFilter);
+            const passesMobile = !this.mobileFilterActive || tags.includes('mobile');
+            const visible = passesCategory && passesMobile;
+            
+            card.style.display = visible ? '' : 'none';
+            if (visible) visibleCount++;
+        });
+        
+        // Show/hide no-results message
+        let noResults = this.gamesGrid.querySelector('.no-results');
+        if (visibleCount === 0) {
+            if (!noResults) {
+                noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = `
+                    <p>No games found for this filter.</p>
+                    <p>Try selecting a different category.</p>
+                `;
+                this.gamesGrid.appendChild(noResults);
+            }
+        } else if (noResults) {
+            noResults.remove();
         }
     }
 
@@ -405,7 +430,7 @@ class WikiGamesArcade {
             input.addEventListener('change', (e) => {
                 if (e.target.checked) {
                     this.currentFilter = e.target.value;
-                    this.buildGridView();
+                    this.filterGridView();
                 }
             });
         });
@@ -414,7 +439,7 @@ class WikiGamesArcade {
         if (mobileToggle) {
             mobileToggle.addEventListener('change', (e) => {
                 this.mobileFilterActive = e.target.checked;
-                this.buildGridView();
+                this.filterGridView();
             });
         }
     }
@@ -515,18 +540,23 @@ class WikiGamesArcade {
 
     handleKeys(e) {
         const key = e.key;
+        const view = window.viewManager?.currentView;
         
         if (key === 'ArrowUp' || key === 'ArrowLeft') {
+            // Only intercept arrow keys in navigable views
+            if (view !== 'arcade' && view !== 'scroll') return;
             e.preventDefault();
-            this.pressButton('left');
-            if (this.isPowered) this.move('prev');
+            if (view === 'arcade') this.pressButton('left');
+            if (view === 'scroll' || this.isPowered) this.move('prev');
         } else if (key === 'ArrowDown' || key === 'ArrowRight') {
+            if (view !== 'arcade' && view !== 'scroll') return;
             e.preventDefault();
-            this.pressButton('right');
-            if (this.isPowered) this.move('next');
+            if (view === 'arcade') this.pressButton('right');
+            if (view === 'scroll' || this.isPowered) this.move('next');
         } else if (key === 'Enter' || key === ' ') {
+            if (view !== 'arcade' && view !== 'scroll') return;
             e.preventDefault();
-            this.pressButton('play');
+            if (view === 'arcade') this.pressButton('play');
             if (this.isPowered) this.playGame();
         } else if (key === 'c' || key === 'C') {
             this.addCoin();
