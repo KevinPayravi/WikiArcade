@@ -467,6 +467,18 @@
       "status": "available",
       "url": "https://aurorahone.itch.io/wikifortune",
       "tags": ["fortunes", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikipediagacha",
+      "name": "Wikipedia Gacha",
+      "emoji": "🎴",
+      "subtitle": "Wikipedia Card Collector",
+      "description": "Collect Wikipedia article cards and battle.",
+      "author": "Haruki Sugiyama",
+      "preview": "wikipediagacha.png",
+      "status": "available",
+      "url": "https://wikigacha.com/",
+      "tags": ["adventure", "daily", "mobile"]
     }
   ]
 }
