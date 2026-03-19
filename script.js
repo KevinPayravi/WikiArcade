@@ -94,6 +94,7 @@ class WikiGamesArcade {
             this.games = this.shuffleArray(data.games);
             this.allGames = [...this.games];
             this.currentFilter = 'all';
+            this.mobileFilterActive = false;
             
             this.buildAllViews();
             this.setupControls();
@@ -382,28 +383,39 @@ class WikiGamesArcade {
     }
 
     getFilteredGames() {
-        if (this.currentFilter === 'all') {
-            return this.allGames;
+        let games = this.allGames;
+
+        if (this.currentFilter !== 'all') {
+            games = games.filter(game => game.tags && game.tags.includes(this.currentFilter));
         }
-        
-        return this.allGames.filter(game => 
-            game.tags && game.tags.includes(this.currentFilter)
-        );
+
+        if (this.mobileFilterActive) {
+            games = games.filter(game => game.tags && game.tags.includes('mobile'));
+        }
+
+        return games;
     }
 
     setupFilters() {
         if (!this.filterControls) return;
         
         const filterInputs = this.filterControls.querySelectorAll('input[name="gameFilter"]');
-        
         filterInputs.forEach(input => {
             input.addEventListener('change', (e) => {
                 if (e.target.checked) {
                     this.currentFilter = e.target.value;
-                    this.buildGridView(); // Only rebuild grid view, other views show all games
+                    this.buildGridView();
                 }
             });
         });
+
+        const mobileToggle = this.filterControls.querySelector('input[name="mobileFilter"]');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('change', (e) => {
+                this.mobileFilterActive = e.target.checked;
+                this.buildGridView();
+            });
+        }
     }
 
     selectGame(index) {
