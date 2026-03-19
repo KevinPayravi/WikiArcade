@@ -602,6 +602,13 @@ class WikiGamesArcade {
         this.credits++;
         this.updateCredits();
         this.coinSlot?.classList.remove('needs-coins');
+
+        // Flash insert effect
+        this.coinSlot?.classList.remove('coin-inserted');
+        requestAnimationFrame(() => {
+            this.coinSlot?.classList.add('coin-inserted');
+            setTimeout(() => this.coinSlot?.classList.remove('coin-inserted'), 500);
+        });
     }
 
     highlightCoinSlot() {
