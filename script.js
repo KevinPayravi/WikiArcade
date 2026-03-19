@@ -91,7 +91,8 @@ class WikiGamesArcade {
         try {
             const response = await fetch('games.json');
             const data = await response.json();
-            this.games = this.shuffleArray(data.games);
+            const availableGames = data.games.filter(g => g.status === 'available');
+            this.games = this.shuffleArray(availableGames);
             this.allGames = [...this.games];
             this.currentFilter = 'all';
             this.mobileFilterActive = false;
