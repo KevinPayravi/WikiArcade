@@ -154,7 +154,7 @@
       "preview": "flagquest.png",
       "status": "available",
       "url": "https://filbertkm.github.io/flagquest/",
-      "tags": ["trivia", "wikigamejam", "mobile"]
+      "tags": ["trivia", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "wikieditbet",
@@ -166,7 +166,7 @@
       "preview": "wikieditbet.png",
       "status": "available",
       "url": "https://omar.website/wikieditbet/",
-      "tags": ["wikigamejam", "mobile"]
+      "tags": ["wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "gallerywall",
@@ -178,7 +178,7 @@
       "preview": "gallerywall.png",
       "status": "available",
       "url": "https://alinaf.github.io/gallery-wall/",
-      "tags": ["art", "wikigamejam"]
+      "tags": ["art", "wikigamejam-nyc-2025"]
     },
     {
       "id": "personallife",
@@ -190,7 +190,7 @@
       "preview": "personallife.png",
       "status": "available",
       "url": "https://personallife.toolforge.org",
-      "tags": ["trivia", "wikigamejam", "mobile"]
+      "tags": ["trivia", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "daysofoctober",
@@ -202,7 +202,7 @@
       "preview": "daysofoctober.png",
       "status": "available",
       "url": "https://daysofoctober.netlify.app/",
-      "tags": ["arcade", "wikigamejam"]
+      "tags": ["arcade", "wikigamejam-nyc-2025"]
     },
     {
       "id": "sigcovhunter",
@@ -214,7 +214,7 @@
       "preview": "sigcovhunter.png",
       "status": "available",
       "url": "https://sigcovhunter.toolforge.org/",
-      "tags": ["contribute", "wikigamejam", "mobile"]
+      "tags": ["contribute", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "clickipedia",
@@ -226,7 +226,7 @@
       "preview": "clickipedia.png",
       "status": "available",
       "url": "https://isabellee.me/clickipedia/",
-      "tags": ["incremental", "wikigamejam"]
+      "tags": ["incremental", "wikigamejam-nyc-2025"]
     },
     {
       "id": "wikimystery",
@@ -238,7 +238,7 @@
       "preview": "wikimystery.png",
       "status": "available",
       "url": "https://leviv.cool/wikigame/",
-      "tags": ["puzzle", "trivia", "wikigamejam"]
+      "tags": ["puzzle", "trivia", "wikigamejam-nyc-2025"]
     },
     {
       "id": "mindpalace",
@@ -250,7 +250,7 @@
       "preview": "mindpalace.png",
       "status": "available",
       "url": "https://mindpalace.fun",
-      "tags": ["trivia", "incremental", "wikigamejam", "mobile"]
+      "tags": ["trivia", "incremental", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "grokipedia",
@@ -262,7 +262,7 @@
       "preview": "grokipedia.png",
       "status": "available",
       "url": "https://derenrich.itch.io/grokipedia",
-      "tags": ["wikigamejam"]
+      "tags": ["wikigamejam-nyc-2025"]
     },
     {
       "id": "portraitsofthinking",
@@ -274,7 +274,7 @@
       "preview": "portraitsofthinking.png",
       "status": "available",
       "url": "https://leey611.github.io/wikiportraitsofthinking/",
-      "tags": ["art", "wikigamejam", "mobile"]
+      "tags": ["art", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "horsesanddivorces",
@@ -286,7 +286,7 @@
       "preview": "horsesanddivorces.png",
       "status": "available",
       "url": "https://derekmiranda.itch.io/horses-and-divorces",
-      "tags": ["trivia", "wikigamejam"]
+      "tags": ["trivia", "wikigamejam-nyc-2025"]
     },
     {
       "id": "wikichain",
@@ -298,7 +298,7 @@
       "preview": "wikichain.png",
       "status": "available",
       "url": "https://wikichain.org/",
-      "tags": ["puzzle", "wikigamejam", "mobile"]
+      "tags": ["puzzle", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "quizbowlgenerator",
@@ -310,7 +310,7 @@
       "preview": "quizbowlgenerator.png",
       "status": "available",
       "url": "https://artnc.github.io/wikipedia-quiz-bowl-generator/",
-      "tags": ["trivia", "wikigamejam", "mobile"]
+      "tags": ["trivia", "wikigamejam-nyc-2025", "mobile"]
     },
     {
       "id": "wikirun",
@@ -371,6 +371,102 @@
       "status": "available",
       "url": "https://kovach96.itch.io/cite",
       "tags": ["puzzle"]
+    },
+    {
+      "id": "wikiroll",
+      "name": "WikiRoll",
+      "emoji": "🏃",
+      "subtitle": "Wikipedia Runner",
+      "description": "Words from a Wikipedia article fly at you as obstacles. Jump to avoid or pass through links.",
+      "author": "Azoodle",
+      "preview": "wikiroll.png",
+      "status": "available",
+      "url": "https://www.azoodle.com/games/wiki-roll",
+      "tags": ["arcade", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "fathom",
+      "name": "Fathom",
+      "emoji": "🔮",
+      "subtitle": "Wikidata Roguelike",
+      "description": "A Wikidata roguelike where you find your way home.",
+      "author": "Anirudh Rao",
+      "preview": "fathom.png",
+      "status": "available",
+      "url": "https://anirudhra0.com/p527/",
+      "tags": ["adventure", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "bibliophileswikirace",
+      "name": "Bibliophile's WikiRace",
+      "emoji": "📚",
+      "subtitle": "Intellectual Wikipedia Traversal",
+      "description": "An intellectual traversal of the world's most extensive digital archive.",
+      "author": "Paige Bailey",
+      "preview": "bibliophileswikirace.png",
+      "status": "available",
+      "url": "https://on-the-same.page/",
+      "tags": ["wikirace", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikiexplosion",
+      "name": "WikiExplosion",
+      "emoji": "💥",
+      "subtitle": "Race Against Wikipedia Link Chaos",
+      "description": "Restore replaced links before cascading article expansions overwhelm the page.",
+      "author": "Travis Briggs",
+      "preview": "wikiexplosion.png",
+      "status": "available",
+      "url": "https://wikiexplosion.vibes.travisbriggs.com/",
+      "tags": ["adventure", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikisim",
+      "name": "WikiSim",
+      "emoji": "🖱️",
+      "subtitle": "Incremental Clicker of Editors",
+      "description": "Incremental clicker where you manage a wiki community.",
+      "author": "CJ Brickhouse",
+      "preview": "wikisim.png",
+      "status": "available",
+      "url": "https://christianbrickhouse.com/games/WikiSim/",
+      "tags": ["incremental", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikiverse",
+      "name": "Wikiverse",
+      "emoji": "🌐",
+      "subtitle": "Wikimedia Projects Quiz",
+      "description": "Discover different Wikimedia projects and test your knowledge of them.",
+      "author": "Salma Alaoui",
+      "preview": "wikiverse.png",
+      "status": "available",
+      "url": "https://salmal.itch.io/wikiverse",
+      "tags": ["trivia", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikistorytravellers",
+      "name": "Wikistory Travellers",
+      "emoji": "📖",
+      "subtitle": "Fairy Tale Adventure",
+      "description": "Play a librarian who travels through different fairy tales trying to get home.",
+      "author": "Shruthi Narayanan",
+      "preview": "wikistorytravellers.png",
+      "status": "available",
+      "url": "https://shruthin.itch.io/wikistory-travellers",
+      "tags": ["adventure", "mobile", "wikigamejam-sf-2026"]
+    },
+    {
+      "id": "wikifortune",
+      "name": "WikiFortune",
+      "emoji": "🔮",
+      "subtitle": "Wikipedia Fortune Teller",
+      "description": "Pick a category, a card, and get a Wikipedia-inspired fortune.",
+      "author": "aurorahone",
+      "preview": "wikifortune.png",
+      "status": "available",
+      "url": "https://aurorahone.itch.io/wikifortune",
+      "tags": ["fortunes", "mobile", "wikigamejam-sf-2026"]
     }
   ]
 }

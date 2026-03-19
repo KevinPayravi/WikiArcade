@@ -260,7 +260,7 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding: 1rem 0.5rem 0 .55rem;
+        padding: 0 0.5rem 0 .55rem;
     }
 
     .view-tabs {
@@ -280,7 +280,7 @@ body {
 
 @media (max-width: 480px) {
     body {
-        padding: 1rem 0.25rem 0 .25rem;
+        padding: 0 0.25rem 0 .25rem;
     }
 
     .view-tabs {
