@@ -479,6 +479,18 @@
       "status": "available",
       "url": "https://wikigacha.com/",
       "tags": ["adventure", "daily", "mobile"]
+    },
+    {
+      "id": "wikicity",
+      "name": "WikiCity",
+      "emoji": "🏙️",
+      "subtitle": "Wikipedia Cityscape Explorer",
+      "description": "A 3D city where building heights reflect Wikipedia page views. Fly around and blow things up!",
+      "author": "Reid Lewis",
+      "preview": "wikicity.png",
+      "status": "available",
+      "url": "https://wikicity.app/",
+      "tags": ["arcade"]
     }
   ]
 }
