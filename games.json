@@ -485,7 +485,7 @@
       "name": "WikiCity",
       "emoji": "🏙️",
       "subtitle": "Wikipedia Cityscape Explorer",
-      "description": "A 3D city where building heights reflect Wikipedia page views. Fly around and blow things up!",
+      "description": "Explore and fly around a 3D city of Wikipedia articles.",
       "author": "Reid Lewis",
       "preview": "wikicity.png",
       "status": "available",
