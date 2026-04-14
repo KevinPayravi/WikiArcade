@@ -325,6 +325,18 @@
       "tags": ["wikirace", "daily", "mobile"]
     },
     {
+      "id": "wikiparty",
+      "name": "Wikiparty.org",
+      "emoji": "🎉",
+      "subtitle": "Multiplayer Wiki Racing",
+      "description": "Race between Wikipedia articles in real-time. Features daily challenges, multiple target articles, and private lobbies.",
+      "author": "Wikiparty Team",
+      "preview": "wikiparty.png",
+      "status": "available",
+      "url": "https://wikiparty.org/",
+      "tags": ["wikirace", "multiplayer", "daily", "mobile"]
+    },
+    {
       "id": "thewikigame",
       "name": "The Wiki Game",
       "emoji": "🏁",
