@@ -211,16 +211,6 @@ body {
     gap: 0.75rem;
 }
 
-.main-subtitle::before,
-.main-subtitle::after {
-    content: '';
-    display: block;
-    width: 2.5rem;
-    height: 1px;
-    background: var(--border-secondary);
-    flex-shrink: 0;
-}
-
 /* Footer */
 .site-footer {
     text-align: center;
