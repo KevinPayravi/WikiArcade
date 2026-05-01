@@ -166,38 +166,38 @@
 
     0%,
     100% {
-        background: rgba(28, 14, 2, 0.9);
-        border-color: rgba(120, 53, 9, 0.5);
+        background: #1a0000;
+        border-color: #550000;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
 
     50% {
-        background: rgba(60, 30, 5, 0.9);
-        border-color: rgba(245, 158, 11, 0.7);
+        background: #330000;
+        border-color: #ff3333;
         box-shadow:
             0 3px 6px rgba(0, 0, 0, 0.8),
-            0 0 15px rgba(245, 158, 11, 0.4),
-            inset 0 0 10px rgba(245, 158, 11, 0.15);
+            0 0 15px rgba(255, 51, 51, 0.6),
+            inset 0 0 10px rgba(255, 51, 51, 0.3);
     }
 }
 
 @keyframes coinInserted {
     0% {
-        background: rgba(28, 14, 2, 0.9);
-        border-color: rgba(120, 53, 9, 0.5);
+        background: #1a0000;
+        border-color: #550000;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
     25% {
-        background: rgba(70, 35, 5, 0.9);
-        border-color: rgba(245, 158, 11, 0.8);
+        background: #260000;
+        border-color: #881111;
         box-shadow:
-            0 1px 2px rgba(0, 0, 0, 0.9),
-            0 0 14px rgba(245, 158, 11, 0.5),
-            inset 0 3px 8px rgba(0, 0, 0, 0.6);
+            0 2px 4px rgba(0, 0, 0, 0.9),
+            0 0 7px rgba(255, 34, 34, 0.25),
+            inset 0 2px 5px rgba(0, 0, 0, 0.6);
     }
     100% {
-        background: rgba(28, 14, 2, 0.9);
-        border-color: rgba(120, 53, 9, 0.5);
+        background: #1a0000;
+        border-color: #550000;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
 }
@@ -492,8 +492,8 @@
 .coin-display {
     width: 65px;
     height: 60px;
-    background: rgba(28, 14, 2, 0.9);
-    border: 2px solid rgba(120, 53, 9, 0.5);
+    background: #1a0000;
+    border: 2px solid #550000;
     border-radius: 6px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     position: relative;
@@ -536,12 +536,12 @@
 }
 
 .coin-text {
-    color: var(--color-credits);
+    color: #ff3333;
     font-family: var(--font-mono);
     font-size: 16px;
     font-weight: 900;
     text-align: center;
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
+    text-shadow: 0 0 8px rgba(255, 51, 51, 0.9);
     letter-spacing: 0.5px;
     margin-bottom: 2px;
     position: relative;
@@ -549,7 +549,7 @@
 }
 
 .coin-instruction {
-    color: rgba(245, 158, 11, 0.65);
+    color: #ff1111;
     font-family: var(--font-mono);
     font-size: 6px;
     font-weight: 700;
@@ -568,25 +568,22 @@
 }
 
 .coin-display:hover {
-    background: rgba(50, 25, 5, 0.9);
+    background: #330000;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
 }
 
 .coin-display:hover .coin-text {
-    color: var(--color-credits);
+    color: #ff5555;
 }
 
 .coin-display:hover .coin-instruction {
-    color: rgba(245, 158, 11, 0.85);
+    color: #ff3333;
 }
 
 .coin-display:active {
-    background: rgba(35, 18, 2, 0.9);
+    background: #2a0000;
+    border: 1px solid #ff3333;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), inset 0 3px 8px rgba(0, 0, 0, 0.7);
-}
-
-.coin-display.coin-inserted {
-    animation: coinInserted 0.5s ease-out forwards;
 }
 
 .coin-display.needs-coins {
