@@ -33,13 +33,13 @@
 }
 
 .marquee-content {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.8) 0%, rgba(25, 25, 112, 0.9) 50%, rgba(123, 104, 238, 0.7) 100%);
+    background: linear-gradient(135deg, rgba(10, 22, 55, 0.98) 0%, rgba(8, 15, 40, 1) 50%, rgba(12, 25, 60, 0.98) 100%);
     border-radius: 4px 4px 0 0;
     padding: 0.75rem 1rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 0, 150, 0.3);
+    border: 1px solid var(--border-accent);
 }
 
 .marquee-title {
@@ -70,7 +70,7 @@
 
 .star {
     position: absolute;
-    color: #fff;
+    color: var(--neon-cyan);
     font-size: 0.8rem;
     animation: twinkle 2s infinite ease-in-out;
     opacity: 0;
@@ -81,70 +81,60 @@
     top: 20%;
     left: 8%;
     animation-delay: 0s;
-    color: #00f5ff;
 }
 
 .star:nth-child(2) {
     top: 65%;
     left: 18%;
     animation-delay: 0.3s;
-    color: #ff0080;
 }
 
 .star:nth-child(3) {
     top: 35%;
     left: 28%;
     animation-delay: 0.6s;
-    color: #7c3aed;
 }
 
 .star:nth-child(4) {
     top: 75%;
     left: 42%;
     animation-delay: 0.9s;
-    color: #00f5ff;
 }
 
 .star:nth-child(5) {
     top: 15%;
     left: 55%;
     animation-delay: 1.2s;
-    color: #ff0080;
 }
 
 .star:nth-child(6) {
     top: 50%;
     left: 68%;
     animation-delay: 1.5s;
-    color: #7c3aed;
 }
 
 .star:nth-child(7) {
     top: 25%;
     left: 78%;
     animation-delay: 1.8s;
-    color: #00f5ff;
 }
 
 .star:nth-child(8) {
     top: 80%;
     left: 85%;
     animation-delay: 2.1s;
-    color: #ff0080;
 }
 
 .star:nth-child(9) {
     top: 45%;
     left: 92%;
     animation-delay: 2.4s;
-    color: #7c3aed;
 }
 
 .star:nth-child(10) {
     top: 60%;
     left: 6%;
     animation-delay: 2.7s;
-    color: #00f5ff;
 }
 
 /* Animations */
@@ -176,38 +166,38 @@
 
     0%,
     100% {
-        background: #1a0000;
-        border-color: #550000;
+        background: rgba(28, 14, 2, 0.9);
+        border-color: rgba(120, 53, 9, 0.5);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
 
     50% {
-        background: #330000;
-        border-color: #ff3333;
+        background: rgba(60, 30, 5, 0.9);
+        border-color: rgba(245, 158, 11, 0.7);
         box-shadow:
             0 3px 6px rgba(0, 0, 0, 0.8),
-            0 0 15px rgba(255, 51, 51, 0.6),
-            inset 0 0 10px rgba(255, 51, 51, 0.3);
+            0 0 15px rgba(245, 158, 11, 0.4),
+            inset 0 0 10px rgba(245, 158, 11, 0.15);
     }
 }
 
 @keyframes coinInserted {
     0% {
-        background: #1a0000;
-        border-color: #550000;
+        background: rgba(28, 14, 2, 0.9);
+        border-color: rgba(120, 53, 9, 0.5);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
     25% {
-        background: #3a0000;
-        border-color: #ff2222;
+        background: rgba(70, 35, 5, 0.9);
+        border-color: rgba(245, 158, 11, 0.8);
         box-shadow:
             0 1px 2px rgba(0, 0, 0, 0.9),
-            0 0 14px rgba(255, 34, 34, 0.6),
+            0 0 14px rgba(245, 158, 11, 0.5),
             inset 0 3px 8px rgba(0, 0, 0, 0.6);
     }
     100% {
-        background: #1a0000;
-        border-color: #550000;
+        background: rgba(28, 14, 2, 0.9);
+        border-color: rgba(120, 53, 9, 0.5);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
 }
@@ -251,9 +241,9 @@
     position: absolute;
     inset: 0;
     background:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.03) 2px, rgba(0, 255, 0, 0.03) 4px),
-        linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%),
-        linear-gradient(0deg, transparent 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.018) 3px, rgba(255, 255, 255, 0.018) 4px),
+        linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.025) 50%, transparent 100%),
+        linear-gradient(0deg, transparent 0%, rgba(255, 255, 255, 0.015) 50%, transparent 100%);
     pointer-events: none;
     border-radius: 12px;
     z-index: 10;
@@ -488,9 +478,9 @@
     transform: translate(-50%, -50%);
     width: 8px;
     height: 8px;
-    background: #00ff00;
+    background: var(--neon-cyan);
     border-radius: 50%;
-    box-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00;
+    box-shadow: 0 0 4px var(--neon-cyan), 0 0 8px rgba(34, 211, 238, 0.4);
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -502,8 +492,8 @@
 .coin-display {
     width: 65px;
     height: 60px;
-    background: #1a0000;
-    border: 2px solid #550000;
+    background: rgba(28, 14, 2, 0.9);
+    border: 2px solid rgba(120, 53, 9, 0.5);
     border-radius: 6px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     position: relative;
@@ -546,12 +536,12 @@
 }
 
 .coin-text {
-    color: #ff3333;
+    color: var(--color-credits);
     font-family: var(--font-mono);
     font-size: 16px;
     font-weight: 900;
     text-align: center;
-    text-shadow: 0 0 8px rgba(255, 51, 51, 0.9);
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
     letter-spacing: 0.5px;
     margin-bottom: 2px;
     position: relative;
@@ -559,7 +549,7 @@
 }
 
 .coin-instruction {
-    color: #ff1111;
+    color: rgba(245, 158, 11, 0.65);
     font-family: var(--font-mono);
     font-size: 6px;
     font-weight: 700;
@@ -578,20 +568,20 @@
 }
 
 .coin-display:hover {
-    background: #330000;
+    background: rgba(50, 25, 5, 0.9);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
 }
 
 .coin-display:hover .coin-text {
-    color: #ff5555;
+    color: var(--color-credits);
 }
 
 .coin-display:hover .coin-instruction {
-    color: #ff3333;
+    color: rgba(245, 158, 11, 0.85);
 }
 
 .coin-display:active {
-    background: #2a0000;
+    background: rgba(35, 18, 2, 0.9);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), inset 0 3px 8px rgba(0, 0, 0, 0.7);
 }
 
