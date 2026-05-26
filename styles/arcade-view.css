@@ -191,7 +191,7 @@
     top: -1px;
     left: 0;
     right: 0;
-    height: 57%;
+    height: 52%;
     background: linear-gradient(148deg, #4e535e 0%, #42464f 22%, #393d46 48%, #30343c 72%, #252830 100%);
     border: 3px solid #2a2d38;
     border-bottom: 2px solid #4a4e5c;
@@ -627,7 +627,9 @@ body.arcade-mode .site-footer {
     }
 
     body.arcade-mode .control-panel {
-        height: 104px;
+        height: 112px;
+        width: 100%;
+        margin: 0;
         perspective: none;
     }
 
