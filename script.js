@@ -3,6 +3,7 @@ class ViewManager {
         this.currentView = 'grid';
         this.views = {
             tabs: document.getElementById('viewTabs'),
+            marquee: document.getElementById('gridMarquee'),
             grid: document.getElementById('gridView'),
             scroll: document.getElementById('scrollView'),
             arcade: document.getElementById('arcadeCabinet')
@@ -15,7 +16,7 @@ class ViewManager {
     setupTabs() {
         if (!this.views.tabs) return;
         
-        // Event delegation for tabs
+        // Event delegation
         this.views.tabs.addEventListener('click', (e) => {
             const tab = e.target.closest('.view-tab');
             if (!tab) return;
@@ -25,26 +26,33 @@ class ViewManager {
     
     showView(viewName) {
         if (!['grid', 'scroll', 'arcade'].includes(viewName)) return;
-        if (this.currentView === viewName) return; // Skip if already showing
+        if (this.currentView === viewName) return;
 
         this.currentView = viewName;
         
-        // Batch DOM updates
         const isArcade = viewName === 'arcade';
+        // Header stays visible in all views
+        if (this.views.marquee) this.views.marquee.style.display = 'block';
         this.views.grid.style.display = viewName === 'grid' ? 'block' : 'none';
         this.views.scroll.style.display = viewName === 'scroll' ? 'block' : 'none';
         this.views.arcade.style.display = isArcade ? 'flex' : 'none';
         document.body.style.overflow = isArcade ? 'hidden' : 'auto';
+        document.body.classList.toggle('arcade-mode', isArcade);
 
-        // Scroll-to-top on view change (only for non-arcade)
+        // Scroll to top
         if (!isArcade) {
             requestAnimationFrame(() => {
                 const bodyPaddingTop = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
                 window.scrollTo({ top: -bodyPaddingTop, behavior: 'smooth' });
             });
+        } else {
+            // Re-position cards once cabinet is sized
+            requestAnimationFrame(() => {
+                if (window.wikiGamesArcade) window.wikiGamesArcade.positionArcadeCards();
+            });
         }
         
-        // Update tab highlighting - use cached tabs if available
+        // Update tab highlights
         if (!this.tabElements) {
             this.tabElements = this.views.tabs?.querySelectorAll('.view-tab');
         }
@@ -183,18 +191,29 @@ class WikiGamesArcade {
         if (cards.length === 0) return;
         
         const selectedIdx = this.selectedIndex;
+        const isFullScreen = document.body.classList.contains('arcade-mode');
+        let offsetPerCard = 100;
+        if (isFullScreen) {
+            const containerW = this.gameCards.offsetWidth;
+            const cardW = cards[0]?.offsetWidth ?? 0;
+            if (containerW > 0 && cardW > 0) {
+                // Show peek of adjacent card
+                const peek = Math.max(40, cardW * 0.22);
+                offsetPerCard = Math.round((containerW + cardW) / 2 - peek);
+            } else {
+                offsetPerCard = 520;
+            }
+        }
         
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
             const distance = i - selectedIdx;
             const isSelected = i === selectedIdx;
             
-            // Batch style updates
-            card.style.setProperty('--card-offset', distance * 100);
+            card.style.setProperty('--card-offset', distance * offsetPerCard);
             card.style.setProperty('--card-scale', isSelected ? 1 : 0.85);
             card.style.zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
             
-            // Toggle class more efficiently
             if (isSelected && !card.classList.contains('selected')) {
                 card.classList.add('selected');
             } else if (!isSelected && card.classList.contains('selected')) {
@@ -296,7 +315,7 @@ class WikiGamesArcade {
         const targetGame = game || this.games[this.selectedIndex];
         if (!targetGame) return;
         
-        // Check if arcade view is active (use cached element)
+        // Check if arcade is active
         const inArcadeMode = this.arcadeView && this.arcadeView.style.display !== 'none';
         
         if (inArcadeMode) {
@@ -457,7 +476,7 @@ class WikiGamesArcade {
         this.positionScrollItems();
         this.updateButtons();
         
-        // Reset throttle after transition completes
+        // Reset throttle
         setTimeout(() => {
             this.isTransitioning = false;
         }, 150);
@@ -536,6 +555,28 @@ class WikiGamesArcade {
         // Keyboard controls
         document.addEventListener('keydown', (e) => this.handleKeys(e));
         window.addEventListener('resize', () => this.handleResize(), { passive: true });
+
+        // Touch swipe
+        if (this.gameCards) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            this.gameCards.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            this.gameCards.addEventListener('touchend', (e) => {
+                if (!this.isPowered) return;
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+                // Horizontal swipes only
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                    if (dx < 0) this.move('next');
+                    else this.move('prev');
+                }
+            }, { passive: true });
+        }
     }
 
     handleKeys(e) {
@@ -543,7 +584,7 @@ class WikiGamesArcade {
         const view = window.viewManager?.currentView;
         
         if (key === 'ArrowUp' || key === 'ArrowLeft') {
-            // Only intercept arrow keys in navigable views
+            // Only in navigable views
             if (view !== 'arcade' && view !== 'scroll') return;
             e.preventDefault();
             if (view === 'arcade') this.pressButton('left');
@@ -569,7 +610,7 @@ class WikiGamesArcade {
         if (this.resizeTimer) clearTimeout(this.resizeTimer);
         
         this.resizeTimer = setTimeout(() => {
-            // Only update the currently visible view
+            // Update visible view
             if (window.viewManager && window.viewManager.currentView === 'arcade') {
                 this.positionArcadeCards();
             } else if (window.viewManager && window.viewManager.currentView === 'scroll') {
@@ -660,4 +701,37 @@ class WikiGamesArcade {
 document.addEventListener('DOMContentLoaded', () => {
     window.viewManager = new ViewManager();
     window.wikiGamesArcade = new WikiGamesArcade();
+    initSpaceMarquee();
 });
+
+function initSpaceMarquee() {
+    const starsEl = document.getElementById('spaceStars');
+    if (!starsEl) return;
+
+    // Build randomised star field
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 140; i++) {
+        const s = document.createElement('div');
+        const size    = 0.4 + Math.random() * 2.2;
+        const opacity = 0.2 + Math.random() * 0.75;
+        const twinkle = Math.random() < 0.28;
+
+        s.className = 'space-star' + (twinkle ? ' space-star-twinkle' : '');
+
+        let style =
+            `left:${(Math.random() * 100).toFixed(2)}%;` +
+            `top:${(Math.random() * 100).toFixed(2)}%;` +
+            `width:${size.toFixed(2)}px;height:${size.toFixed(2)}px;` +
+            `--star-opacity:${opacity.toFixed(2)};opacity:${opacity.toFixed(2)};`;
+
+        if (twinkle) {
+            style +=
+                `--twinkle-dur:${(2 + Math.random() * 3.5).toFixed(1)}s;` +
+                `--twinkle-delay:${(Math.random() * 5).toFixed(1)}s;`;
+        }
+
+        s.style.cssText = style;
+        frag.appendChild(s);
+    }
+    starsEl.appendChild(frag);
+}

@@ -4,6 +4,7 @@
     color: var(--text-secondary);
     font-weight: 400;
     line-height: 1.6;
+    padding-top: 1.5rem;
 }
 
 .game-selection {
@@ -76,21 +77,17 @@
     justify-content: center;
     margin: 0;
     overflow: hidden;
-    backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-md);
 }
 
 .nav-arrow:hover {
     background: var(--bg-tertiary);
     border-color: var(--border-secondary);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
 }
 
 .nav-arrow:active {
     transform: translateY(0);
     background: var(--bg-accent);
-    box-shadow: var(--shadow-sm);
 }
 
 .nav-arrow:disabled {
@@ -104,9 +101,9 @@
 
 .arrow-icon {
     font-size: 22px;
-    color: #e2e8f0;
+    color: var(--text-primary);
     font-weight: 900;
-    transition: all 0.15s ease;
+    transition: var(--transition-smooth);
 }
 
 .nav-arrow:hover .arrow-icon {
@@ -129,8 +126,6 @@
     width: 100%;
     max-width: 400px;
     overflow: hidden;
-    backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-sm);
     z-index: 1;
     opacity: 0.4;
     transform: translateY(calc(var(--distance) * 80px)) scale(0.85) rotateX(calc(var(--distance) * 5deg));
@@ -139,7 +134,6 @@
 .game-item.selected {
     background: var(--bg-accent);
     border: 1px solid var(--border-accent);
-    box-shadow: var(--shadow-lg);
     opacity: 1;
     transform: translateY(0) scale(1) rotateX(0deg);
     z-index: 10;
@@ -149,22 +143,6 @@
     background: var(--bg-accent);
     border-color: var(--border-secondary);
     box-shadow: var(--shadow-md);
-}
-
-.game-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
-    letter-spacing: -0.025em;
-}
-
-.game-emoji {
-    font-size: 1.125rem;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-right: .5rem;
 }
 
 .game-item.selected .game-name {
@@ -201,8 +179,6 @@
     border-radius: var(--radius-2xl);
     border: 1px solid var(--border-secondary);
     padding: 1.5rem;
-    backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-lg);
     overflow: hidden;
 }
 
@@ -213,19 +189,14 @@
     object-position: top;
     border-radius: var(--radius-xl);
     border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
     background: var(--bg-tertiary);
     flex-shrink: 0;
-    backdrop-filter: blur(20px);
     margin-bottom: 1.5rem;
 }
 
 .game-preview:hover {
     transform: scale(1.02) translateY(-2px);
-    box-shadow:
-        var(--shadow-xl),
-        0 0 0 1px var(--border-accent);
     border-color: var(--border-secondary);
 }
 
@@ -276,25 +247,22 @@
     border: 1px solid transparent;
     background: var(--arcade-blue);
     color: var(--text-primary);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     min-width: 140px;
     cursor: pointer;
-    box-shadow: var(--shadow-md);
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .game-status:hover {
     background: var(--arcade-blue-light);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
 }
 
 .game-status:active {
     transform: translateY(0);
-    box-shadow: var(--shadow-sm);
 }
 
-/* Scroll view responsive changes */
+/* Responsive */
 @media (max-width: 768px) {
     .scroll-view {
         overflow-x: hidden;
@@ -322,7 +290,6 @@
         order: 2;
         min-height: 95px;
         position: relative;
-        overflow: hidden;
     }
 
     .nav-arrows-container {
@@ -346,10 +313,8 @@
     }
 
     .game-item {
-        padding: 0.75rem 1rem;
         width: 280px;
         white-space: nowrap;
-        position: absolute;
         top: 50%;
         left: 50%;
         transform: translateX(calc(-50% + var(--distance) * 90px)) translateY(-50%) scale(0.85);
@@ -370,18 +335,15 @@
         max-width: none;
         height: 450px;
         padding: 1rem;
-        border-radius: var(--radius-2xl);
     }
 
     .game-preview {
         height: 240px;
-        border-radius: var(--radius-xl);
         margin-bottom: 1rem;
     }
 
     .selected-game-title {
         font-size: clamp(1.125rem, 5vw, 1.375rem);
-        letter-spacing: -0.025em;
         height: 3.5rem;
     }
 
@@ -393,12 +355,6 @@
 }
 
 @media (max-width: 480px) {
-    .selection-layout,
-    .game-navigation,
-    .nav-arrows-container {
-        gap: 0.75rem;
-    }
-
     .nav-arrow {
         width: 48px;
         height: 48px;
@@ -410,55 +366,23 @@
     }
 
     .game-item {
-        padding: 0.625rem 0.875rem;
         width: 260px;
-        border-radius: var(--radius-xl);
-        transform: translateX(calc(-50% + var(--distance) * 80px)) translateY(-50%) scale(0.85);
-    }
-
-    .game-item.selected {
-        transform: translateX(-50%) translateY(-50%) scale(1);
-    }
-
-    .game-name {
-        font-size: 1.125rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .game-subtitle {
-        font-size: 0.8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     .preview-container {
         height: 390px;
-        padding: 1rem;
-        border-radius: var(--radius-xl);
     }
 
     .game-preview {
         height: 200px;
-        border-radius: var(--radius-lg);
-        margin-bottom: 1rem;
     }
 
     .selected-game-title {
-        font-size: clamp(1rem, 6vw, 1.125rem);
         height: 3rem;
-    }
-
-    .game-description {
-        font-size: clamp(0.75rem, 3.5vw, 0.875rem);
-        height: 2.6rem;
     }
 
     .game-status {
         padding: 0.625rem 1.5rem;
-        font-size: 0.8rem;
         min-width: 120px;
     }
 }

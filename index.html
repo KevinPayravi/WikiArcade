@@ -17,8 +17,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=block" rel="stylesheet">
     <link rel="preload" href="games.json" as="fetch" crossorigin>
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/grid-view.css">
@@ -26,7 +25,7 @@
     <link rel="stylesheet" href="styles/arcade-view.css">
 </head>
 <body>
-    <!-- View Mode Tabs -->
+    <!-- View Selection Tabs -->
     <div class="view-tabs" id="viewTabs">
         <button class="view-tab view-tab-active" data-view="grid" title="Grid View">
             <span class="tab-icon">📱</span>
@@ -42,14 +41,22 @@
         </button>
     </div>
 
-    <!-- Default Grid View -->
+    <!-- Marquee Header -->
+    <header class="marquee-header" id="gridMarquee">
+        <div class="grid-space-nebula" aria-hidden="true"></div>
+        <div class="grid-space-stars" id="spaceStars" aria-hidden="true"></div>
+        
+        <div class="marquee-content">
+            <h1 class="marquee-title">
+                <span class="marquee-word">WIKI</span>
+                <img class="baby-globe-inline" src="assets/baby-globe-space.gif" alt="" aria-hidden="true" decoding="async">
+                <span class="marquee-word">ARCADE</span>
+            </h1>
+            <!-- <p class="marquee-subtitle">A Showcase of Wiki-Powered Games</p> -->
+        </div>
+    </header>
     <div class="grid-view" id="gridView">
         <div class="scroll-container">
-            <header class="main-header">
-                <h1 class="page-title">WIKI ARCADE</h1>
-                <p class="main-subtitle">A Showcase of Wiki-Powered Games</p>
-            </header>
-            
             <!-- Filter Controls -->
             <div class="filter-controls" id="filterControls">
                 <div class="filter-group">
@@ -89,7 +96,6 @@
                     <input type="radio" id="filter-wikigamejam-sf-2026" name="gameFilter" value="wikigamejam-sf-2026">
                     <label for="filter-wikigamejam-sf-2026">WikiGameJam SF 2026</label>
 
-                    <span class="filter-divider"></span>
                     <div class="mobile-toggle-wrap">
                         <input type="checkbox" id="filter-mobile" name="mobileFilter" value="mobile">
                         <label for="filter-mobile" class="mobile-toggle-label" aria-label="Toggle mobile friendly games">
@@ -111,11 +117,6 @@
     <!-- Scroll View -->
     <div class="scroll-view" id="scrollView" style="display: none;">
         <div class="scroll-container">
-            <header class="main-header">
-                <h1 class="page-title">WIKI ARCADE</h1>
-                <p class="main-subtitle">A Showcase of Wiki-Powered Games</p>
-            </header>
-            
             <div class="game-selection">
                 <div class="selection-layout">
                     <div class="game-navigation">
@@ -150,27 +151,6 @@
 
     <!-- Arcade Cabinet View -->
     <div class="arcade-cabinet" id="arcadeCabinet" style="display: none;">
-        <!-- Marquee -->
-        <div class="arcade-marquee">
-            <div class="marquee-light-border">
-                <div class="marquee-content">
-                    <div class="marquee-stars">
-                        <div class="star">✦</div>
-                        <div class="star">✧</div>
-                        <div class="star">✦</div>
-                        <div class="star">✧</div>
-                        <div class="star">✦</div>
-                        <div class="star">✧</div>
-                        <div class="star">✦</div>
-                        <div class="star">✧</div>
-                        <div class="star">✦</div>
-                        <div class="star">✧</div>
-                    </div>
-                    <h1 class="marquee-title" data-text="WIKI ARCADE">WIKI ARCADE</h1>
-                </div>
-            </div>
-        </div>
-        
         <!-- Screen -->
         <div class="screen-bezel">
             <div class="screen-content">
@@ -234,8 +214,9 @@
     
     <footer class="site-footer">
         <p>A <a href="https://www.wiki.haus" target="_blank" rel="noopener">WikiHaus</a> Project</p>
-        <p>Built by <a href="https://hamstro.dev" target="_blank" rel="noopener">Hamstro</a> / <a href="https://kevin.payravi.dev" target="_blank" rel="noopener">Kevin Payravi</a></p>
-        <p>Each listed game by its respective author(s) • <a href="https://github.com/KevinPayravi/WikiArcade" target="_blank" rel="noopener">Source Code</a></p>
+        <p>Built by <a href="https://hamstro.dev" target="_blank" rel="noopener">Hamstro</a> / <a href="https://kevin.payravi.dev" target="_blank" rel="noopener">Kevin Payravi</a> • <a href="https://github.com/KevinPayravi/WikiArcade" target="_blank" rel="noopener">Source Code</a></p>
+        <p>Each listed game by its respective author(s)</p>
+        <p>Baby Globe mascot original design by BaduFerreira;<br>space animation by Sharon Park, Bex McNally, Axel Kinnear, and Carolyn Li-Madeo</p>
     </footer>
     
     <script src="script.js" defer></script>
