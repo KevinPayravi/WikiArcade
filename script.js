@@ -244,10 +244,11 @@ class WikiGamesArcade {
         ? `<span class="game-emoji">${game.emoji}</span>`
         : "";
       const subtitle = game.subtitle || game.description;
-
       item.innerHTML = `
-                <div class="game-name">${emoji}<span>${game.name}</span></div>
-                <div class="game-subtitle">${subtitle}</div>
+                <div class="game-item-main">
+                  <div class="game-name">${emoji}<span>${game.name}</span></div>
+                  <div class="game-subtitle">${subtitle}</div>
+                </div>
             `;
 
       fragment.appendChild(item);
@@ -303,8 +304,22 @@ class WikiGamesArcade {
     const game = this.games[this.selectedIndex];
     if (!game || !this.gamePreview) return;
 
-    this.gamePreview.src = `assets/previews/${game.preview}`;
-    this.gamePreview.alt = `${game.name} Preview`;
+    const preview = this.gamePreview;
+    const newSrc = `assets/previews/${game.preview}`;
+    preview.classList.add("preview-changing");
+    clearTimeout(this._previewFadeTimer);
+    this._previewFadeTimer = setTimeout(() => {
+      preview.src = newSrc;
+      preview.alt = `${game.name} Preview`;
+      const onDone = () => {
+        preview.classList.remove("preview-changing");
+        preview.removeEventListener("load", onDone);
+        preview.removeEventListener("error", onDone);
+      };
+      preview.addEventListener("load", onDone);
+      preview.addEventListener("error", onDone);
+      if (preview.complete && preview.naturalWidth > 0) onDone();
+    }, 130);
 
     if (this.selectedGameTitle) this.selectedGameTitle.textContent = game.name;
     if (this.gameDescription)
@@ -316,8 +331,8 @@ class WikiGamesArcade {
       this.gameStatus.onclick = () => this.playGame(game);
     }
 
-    this.gamePreview.style.cursor = "pointer";
-    this.gamePreview.onclick = () => this.playGame(game);
+    preview.style.cursor = "pointer";
+    preview.onclick = () => this.playGame(game);
   }
 
   playGame(game = null) {
@@ -574,6 +589,53 @@ class WikiGamesArcade {
     // Scroll view buttons
     this.navUp?.addEventListener("click", () => this.move("prev"));
     this.navDown?.addEventListener("click", () => this.move("next"));
+
+    // Mouse wheel navigation for scroll view
+    const scrollViewEl = document.getElementById("scrollView");
+    if (scrollViewEl) {
+      scrollViewEl.addEventListener(
+        "wheel",
+        (e) => {
+          if (window.viewManager?.currentView !== "scroll") return;
+          e.preventDefault();
+          if (e.deltaY > 0 || e.deltaX > 0) this.move("next");
+          else this.move("prev");
+        },
+        { passive: false },
+      );
+    }
+
+    // Touch swipe for scroll view game list
+    if (this.gameList) {
+      let svTouchStartX = 0;
+      let svTouchStartY = 0;
+
+      this.gameList.addEventListener(
+        "touchstart",
+        (e) => {
+          svTouchStartX = e.touches[0].clientX;
+          svTouchStartY = e.touches[0].clientY;
+        },
+        { passive: true },
+      );
+
+      this.gameList.addEventListener(
+        "touchend",
+        (e) => {
+          const dx = e.changedTouches[0].clientX - svTouchStartX;
+          const dy = e.changedTouches[0].clientY - svTouchStartY;
+          // Vertical swipe on desktop layout, horizontal on mobile
+          if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx) * 1.2) {
+            if (dy < 0) this.move("next");
+            else this.move("prev");
+          } else if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            if (dx < 0) this.move("next");
+            else this.move("prev");
+          }
+        },
+        { passive: true },
+      );
+    }
 
     // Keyboard controls
     document.addEventListener("keydown", (e) => this.handleKeys(e));

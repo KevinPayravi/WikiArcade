@@ -37,6 +37,21 @@
   position: relative;
 }
 
+/* Center-slot selected indicator */
+.selector-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  max-width: 400px;
+  height: 80px;
+  border-radius: var(--radius-2xl);
+  background: rgba(37, 99, 235, 0.05);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .nav-arrows-container {
   display: contents;
 }
@@ -53,7 +68,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,6 +75,16 @@
   perspective: 1000px;
   perspective-origin: center center;
   grid-row: 2;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.8) 18%,
+    black 30%,
+    black 70%,
+    rgba(0, 0, 0, 0.8) 82%,
+    transparent 100%
+  );
 }
 
 /* Navigation arrows */
@@ -127,14 +151,31 @@
   max-width: 400px;
   overflow: hidden;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.45;
   transform: translateY(calc(var(--distance) * 80px)) scale(0.85)
     rotateX(calc(var(--distance) * 5deg));
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.game-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Override margin for name inside scroll items */
+.game-item .game-name {
+  margin-bottom: 0.125rem;
 }
 
 .game-item.selected {
   background: var(--bg-accent);
-  border: 1px solid var(--border-accent);
+  border: 1px solid rgba(37, 99, 235, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.12),
+    0 4px 24px rgba(37, 99, 235, 0.22),
+    0 1px 4px rgba(0, 0, 0, 0.4);
   opacity: 1;
   transform: translateY(0) scale(1) rotateX(0deg);
   z-index: 10;
@@ -191,11 +232,16 @@
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-primary);
   transition:
+    opacity 0.15s ease,
     transform 0.3s ease,
     border-color 0.3s ease;
   background: var(--bg-tertiary);
   flex-shrink: 0;
   margin-bottom: 1.5rem;
+}
+
+.game-preview.preview-changing {
+  opacity: 0;
 }
 
 .game-preview:hover {
@@ -211,7 +257,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  flex: none;
+  flex: 1;
   text-align: center;
 }
 
@@ -225,7 +271,7 @@
   text-transform: uppercase;
   letter-spacing: -0.025em;
   line-height: 1.2;
-  height: 4.2rem;
+  height: 4.25rem;
 }
 
 .game-description {
@@ -233,7 +279,7 @@
   color: var(--text-muted);
   line-height: 1.4;
   font-weight: 400;
-  height: 3.2rem;
+  height: 3.25rem;
 }
 
 /* Action buttons */
@@ -241,6 +287,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-top: auto;
   padding: 0.75rem 2rem;
   border-radius: var(--radius-2xl);
   font-weight: 600;
@@ -280,13 +327,11 @@
 
   .game-navigation {
     max-width: none;
-    height: auto;
     min-height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
   }
 
   .game-list {
@@ -295,6 +340,19 @@
     order: 2;
     min-height: 95px;
     position: relative;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 15%,
+      black 28%,
+      black 72%,
+      rgba(0, 0, 0, 0.8) 85%,
+      transparent 100%
+    );
+  }
+
+  .selector-indicator {
+    display: none;
   }
 
   .nav-arrows-container {
@@ -314,7 +372,7 @@
   }
 
   .nav-arrow-down .arrow-icon {
-    transform: rotate(270deg);
+    transform: rotate(-90deg);
   }
 
   .game-item {
@@ -339,12 +397,12 @@
 
   .preview-container {
     max-width: none;
-    height: 450px;
+    height: 460px;
     padding: 1rem;
   }
 
   .game-preview {
-    height: 240px;
+    height: 235px;
     margin-bottom: 1rem;
   }
 
@@ -355,7 +413,7 @@
 
   .game-description {
     font-size: clamp(0.8rem, 3vw, 0.9rem);
-    height: 2.8rem;
+    height: 2.75rem;
   }
 }
 
@@ -375,11 +433,11 @@
   }
 
   .preview-container {
-    height: 390px;
+    height: 400px;
   }
 
   .game-preview {
-    height: 200px;
+    height: 195px;
   }
 
   .selected-game-title {
