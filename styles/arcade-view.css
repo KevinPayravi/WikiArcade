@@ -359,7 +359,7 @@
 .coin-instruction {
   color: #ff1111;
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 8px;
   font-weight: 700;
   text-align: center;
   line-height: 0.9;
@@ -407,13 +407,18 @@
 }
 
 .arcade-button {
+  --btn-ring: #8a1818;
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  border: 3px solid #2a2a2a;
-  background: linear-gradient(to bottom, #dd5555, #bb3333);
+  border: 5px solid var(--btn-ring);
+  background:
+    radial-gradient(ellipse at 38% 28%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 35%, transparent 60%),
+    radial-gradient(ellipse at center, #dd4444 0%, #bb2020 60%, #991111 100%);
   cursor: pointer;
-  transition: border-color 0.15s ease;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
   position: relative;
   flex-shrink: 0;
   display: flex;
@@ -421,28 +426,41 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  box-shadow:
+    0 5px 0 0 var(--btn-ring),
+    0 7px 14px rgba(0, 0, 0, 0.55),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.25);
 }
 
 .arcade-button-left,
 .arcade-button-right {
-  background: linear-gradient(to bottom, #4a7bc8, #2a5ba8);
+  --btn-ring: #1c3a8a;
+  background:
+    radial-gradient(ellipse at 38% 28%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 35%, transparent 60%),
+    radial-gradient(ellipse at center, #5588dd 0%, #3366bb 60%, #2244aa 100%);
 }
 
 .arcade-button-play {
   width: 55px;
   height: 55px;
-  background: linear-gradient(to bottom, #c84a4a, #a82a2a);
-  border-width: 4px;
+  border-width: 6px;
 }
 
 .arcade-button:hover {
-  border-color: #666;
+  box-shadow:
+    0 6px 0 0 var(--btn-ring),
+    0 9px 18px rgba(0, 0, 0, 0.6),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.25);
 }
 
 .arcade-button:active,
 .arcade-button.button-pressed {
-  border-color: #333;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  /* Button depresses into the panel */
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 0 var(--btn-ring),
+    0 2px 5px rgba(0, 0, 0, 0.45),
+    inset 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 
 .button-icon,
@@ -454,7 +472,6 @@
 .button-icon {
   font-size: 14px;
   font-weight: 900;
-  margin-bottom: 0.05rem;
 }
 
 .button-label {
@@ -483,8 +500,11 @@
 /* Touch devices */
 @media (hover: none) and (pointer: coarse) {
   .arcade-button:hover {
-    border-color: #2a2a2a;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    /* Reset hover on touch */
+    box-shadow:
+      0 5px 0 0 var(--btn-ring),
+      0 7px 14px rgba(0, 0, 0, 0.55),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.25);
   }
 
   .arcade-game-card {
@@ -494,8 +514,8 @@
 
   .arcade-button {
     transition:
-      box-shadow 0.1s ease,
-      border-color 0.1s ease;
+      transform 0.08s ease,
+      box-shadow 0.08s ease;
   }
 
   .arcade-header .credits-display,
@@ -672,31 +692,40 @@ body.arcade-mode .site-footer {
   }
 
   body.arcade-mode .control-panel {
-    height: 112px;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    height: auto;
     margin: 0;
     perspective: none;
   }
 
-  /* Flatten the tilted tabletop on small screens */
   body.arcade-mode .tabletop-surface {
+    position: relative;
+    top: 0;
+    height: auto;
     transform: none;
-  }
-
-  body.arcade-mode .front-panel {
-    height: 44px;
-    padding: 0 0.75rem;
+    box-shadow: none;
   }
 
   body.arcade-mode .controls-section {
-    padding: 0.375rem 0.5rem;
-    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    gap: 1.25rem;
+    height: auto;
+  }
+
+  body.arcade-mode .front-panel {
+    position: relative;
+    bottom: auto;
+    height: auto;
+    padding: 0.625rem 1.5rem;
+    border-top: 2px solid #1a1d24;
   }
 
   body.arcade-mode .arcade-button {
     width: 40px;
     height: 40px;
-    border-width: 2px;
+    border-width: 4px;
   }
 
   body.arcade-mode .arcade-button-play {
@@ -709,13 +738,13 @@ body.arcade-mode .site-footer {
   }
 
   body.arcade-mode .button-label {
-    font-size: 0.35rem;
+    font-size: 0.5rem;
   }
 
   body.arcade-mode .coin-display {
-    width: 44px;
-    height: 36px;
-    border-width: 1px;
+    width: 48px;
+    height: 42px;
+    border-width: 2px;
   }
 
   body.arcade-mode .coin-text {
@@ -723,11 +752,11 @@ body.arcade-mode .site-footer {
   }
 
   body.arcade-mode .coin-instruction {
-    font-size: 5px;
+    font-size: 7px;
   }
 
   body.arcade-mode .coin-slot-vertical {
-    height: 36px;
+    height: 42px;
   }
 }
 
