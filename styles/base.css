@@ -354,6 +354,11 @@ body {
   margin: 0;
 }
 
+.site-footer p:not(:first-child) {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
 .site-footer a {
   color: rgb(var(--arcade-blue-light));
   text-decoration: none;
