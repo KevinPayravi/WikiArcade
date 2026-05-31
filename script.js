@@ -83,6 +83,7 @@ class WikiGamesArcade {
     this.gamePreview = document.getElementById("gamePreview");
     this.selectedGameTitle = document.getElementById("selectedGameTitle");
     this.gameDescription = document.getElementById("gameDescription");
+    this.scrollGameAuthor = document.getElementById("scrollGameAuthor");
     this.gameStatus = document.getElementById("gameStatus");
     this.navUp = document.getElementById("navUp");
     this.navDown = document.getElementById("navDown");
@@ -92,6 +93,7 @@ class WikiGamesArcade {
     this.powerButton = document.getElementById("powerButton");
     this.coinSlot = document.getElementById("coinSlot");
     this.creditsDisplay = document.querySelector(".credits-display");
+    this.insertCoinOverlay = document.getElementById("insertCoinOverlay");
     this.filterControls = document.getElementById("filterControls");
     this.arcadeView = document.getElementById("arcadeCabinet"); // Cache arcade view
     this.cabinet = document.querySelector(".arcade-cabinet"); // Cache cabinet
@@ -154,13 +156,13 @@ class WikiGamesArcade {
         ? `<span class="game-emoji">${game.emoji}</span> `
         : "";
       const author = game.author
-        ? `<div class="arcade-game-card-author">by ${game.author}</div>`
+        ? `<div class="arcade-game-card-author">By ${game.author}</div>`
         : "";
 
       card.innerHTML = `
                 <img class="arcade-game-card-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
                 <div class="arcade-game-card-title">
-                    ${emoji}<span class="game-name">${game.name}</span>
+                    ${emoji}<span>${game.name}</span>
                 </div>
                 <div class="arcade-game-card-description">${game.description}</div>
                 ${author}
@@ -265,6 +267,7 @@ class WikiGamesArcade {
         const i = parseInt(item.dataset.index);
         this.selectGame(i);
       });
+
       this.scrollItemsDelegated = true;
     }
 
@@ -321,9 +324,17 @@ class WikiGamesArcade {
       if (preview.complete && preview.naturalWidth > 0) onDone();
     }, 130);
 
-    if (this.selectedGameTitle) this.selectedGameTitle.textContent = game.name;
+    if (this.selectedGameTitle) {
+      const emoji = game.emoji
+        ? `<span class="game-emoji">${game.emoji}</span> `
+        : "";
+      this.selectedGameTitle.innerHTML = `${emoji}<span>${game.name}</span>`;
+    }
     if (this.gameDescription)
       this.gameDescription.textContent = game.description;
+
+    if (this.scrollGameAuthor)
+      this.scrollGameAuthor.textContent = game.author ? `By ${game.author}` : "";
 
     if (this.gameStatus) {
       this.gameStatus.textContent = "Play Now";
@@ -347,7 +358,7 @@ class WikiGamesArcade {
       if (!this.isPowered) return;
 
       if (this.credits <= 0) {
-        alert("Insert coin to play!");
+        this.showInsertCoinOverlay();
         this.highlightCoinSlot();
         return;
       }
@@ -356,7 +367,10 @@ class WikiGamesArcade {
       this.updateCredits();
 
       if (this.credits === 0) {
-        setTimeout(() => this.highlightCoinSlot(), 500);
+        setTimeout(() => {
+          this.highlightCoinSlot();
+          this.showInsertCoinOverlay();
+        }, 500);
       }
     }
 
@@ -376,6 +390,9 @@ class WikiGamesArcade {
       const card = document.createElement("div");
       card.className = "grid-arcade-game-card";
       card.dataset.gameId = game.id;
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `Play ${game.name}`);
       if (game.tags && game.tags.length > 0) {
         card.dataset.tags = game.tags.join(",");
       }
@@ -384,7 +401,7 @@ class WikiGamesArcade {
         ? `<span class="game-emoji">${game.emoji}</span> `
         : "";
       const author = game.author
-        ? `<div class="grid-game-author">by ${game.author}</div>`
+        ? `<div class="grid-game-author">By ${game.author}</div>`
         : "";
 
       // Add tags display
@@ -394,10 +411,10 @@ class WikiGamesArcade {
           : "";
 
       card.innerHTML = `
-                <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
                 <div class="grid-game-title">
-                    ${emoji}<span class="game-name">${game.name}</span>
+                    ${emoji}<span>${game.name}</span>
                 </div>
+                <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
                 <div class="grid-game-description">${game.description}</div>
                 ${tagsHtml}
                 ${author}
@@ -414,6 +431,18 @@ class WikiGamesArcade {
         const card = e.target.closest(".grid-arcade-game-card");
         if (!card) return;
 
+        const gameId = card.dataset.gameId;
+        const game = this.allGames.find((g) => g.id === gameId);
+        if (game) this.playGame(game);
+      });
+
+      this.gamesGrid.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+
+        const card = e.target.closest(".grid-arcade-game-card");
+        if (!card) return;
+
+        e.preventDefault();
         const gameId = card.dataset.gameId;
         const game = this.allGames.find((g) => g.id === gameId);
         if (game) this.playGame(game);
@@ -457,22 +486,6 @@ class WikiGamesArcade {
     } else if (noResults) {
       noResults.remove();
     }
-  }
-
-  getFilteredGames() {
-    let games = this.allGames;
-
-    if (this.currentFilter !== "all") {
-      games = games.filter(
-        (game) => game.tags && game.tags.includes(this.currentFilter),
-      );
-    }
-
-    if (this.mobileFilterActive) {
-      games = games.filter((game) => game.tags && game.tags.includes("mobile"));
-    }
-
-    return games;
   }
 
   setupFilters() {
@@ -755,15 +768,31 @@ class WikiGamesArcade {
       this.powerButton?.classList.remove("off");
 
       if (this.credits === 0) {
-        setTimeout(() => this.highlightCoinSlot(), 500);
+        setTimeout(() => {
+          this.highlightCoinSlot();
+          this.showInsertCoinOverlay();
+        }, 500);
       }
     } else {
       this.cabinet?.classList.add("powered-off");
       this.powerButton?.classList.add("off");
       this.coinSlot?.classList.remove("needs-coins");
+      this.hideInsertCoinOverlay();
     }
 
     this.updateButtons();
+  }
+
+  showInsertCoinOverlay() {
+    if (!this.insertCoinOverlay) return;
+    this.insertCoinOverlay.classList.add("visible");
+    this.insertCoinOverlay.setAttribute("aria-hidden", "false");
+  }
+
+  hideInsertCoinOverlay() {
+    if (!this.insertCoinOverlay) return;
+    this.insertCoinOverlay.classList.remove("visible");
+    this.insertCoinOverlay.setAttribute("aria-hidden", "true");
   }
 
   addCoin() {
@@ -772,6 +801,7 @@ class WikiGamesArcade {
     this.credits++;
     this.updateCredits();
     this.coinSlot?.classList.remove("needs-coins");
+    this.hideInsertCoinOverlay();
 
     // Flash insert effect
     this.coinSlot?.classList.remove("coin-inserted");

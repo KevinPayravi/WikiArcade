@@ -1,20 +1,14 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* Custom properties */
 :root {
-  /* Colors */
-  --arcade-blue: #2563eb;
-  --arcade-blue-light: #3b82f6;
-  --neon-cyan: #22d3ee;
-  --color-credits: #f59e0b;
-  --color-lives: #ef4444;
-
-  /* Backgrounds */
+  --arcade-blue: 0 99 191;
+  --arcade-blue-light: 26 125 220;
+  --focus-ring: rgb(var(--arcade-blue-light));
+  --color-credits: 245 158 11;
+  --color-lives: 239 68 68;
   --bg-primary: #070d17;
   --bg-secondary: #111a2e;
   --bg-tertiary: #162038;
@@ -29,52 +23,80 @@
   /* Borders */
   --border-primary: rgba(148, 163, 184, 0.1);
   --border-secondary: rgba(148, 163, 184, 0.18);
-  --border-accent: rgba(37, 99, 235, 0.4);
+  --border-accent: rgb(var(--arcade-blue) / 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 3px 8px rgba(0, 0, 0, 0.26);
+  --shadow-lg: 0 5px 14px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 8px 22px rgba(0, 0, 0, 0.36);
 
-  /* Elevation */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.28);
-  --shadow-lg: 0 3px 10px rgba(0, 0, 0, 0.32);
-  --shadow-xl: 0 5px 16px rgba(0, 0, 0, 0.38);
-
-  /* Spacing */
-  --radius-md: 6px;
-  --radius-lg: 10px;
-  --radius-xl: 14px;
-  --radius-2xl: 18px;
+  /* Border radius */
+  --radius-sm: 0.15rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 
   /* Typography */
   --font-primary:
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-arcade: "Tourney", monospace;
+  --font-arcade-ui: "Oxanium", "Segoe UI", sans-serif;
   --font-mono: ui-monospace, monospace;
 
   /* Motion */
   --transition-smooth:
     color 150ms ease, background-color 150ms ease, border-color 150ms ease,
-    box-shadow 150ms ease, transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow 150ms ease, transform 150ms cubic-bezier(0.19, 1, 0.22, 1);
 
   /* Gradients */
   --gradient-title: linear-gradient(
     120deg,
-    #60a5fa 5%,
-    #22d3ee 55%,
-    #60a5fa 95%
+    rgb(var(--arcade-blue-light)) 5%,
+    rgb(var(--arcade-blue)) 55%,
+    rgb(var(--arcade-blue-light)) 95%
   );
   --gradient-bg-primary:
     radial-gradient(
-      ellipse 80% 40% at 50% 0%,
-      rgba(37, 99, 235, 0.12) 0%,
+      ellipse 82% 38% at 48% -2%,
+      rgb(var(--arcade-blue) / 0.12) 0%,
       transparent 100%
     ),
     var(--bg-primary);
+  --retro-panel-bg: #15233d;
+  --retro-panel-bg-hover: #1a2c4a;
+  --retro-panel-border: rgb(var(--arcade-blue-light) / 0.22);
+  --retro-panel-border-hover: rgb(var(--arcade-blue-light) / 0.55);
+  --retro-panel-shadow:
+    0 0 0 1px rgba(7, 13, 23, 0.85) inset,
+    0 0 0 2px rgb(var(--arcade-blue-light) / 0.18) inset,
+    0 0.5rem 0 rgba(6, 12, 22, 0.85), 0 0.875rem 1.5rem rgba(0, 0, 0, 0.35);
+  --retro-panel-shadow-hover:
+    0 0 0 1px rgba(7, 13, 23, 0.85) inset,
+    0 0 0 2px rgb(var(--arcade-blue-light) / 0.3) inset,
+    0 0.75rem 0 rgba(6, 12, 22, 0.8), 0 1.125rem 1.875rem rgba(0, 0, 0, 0.45);
+  --retro-panel-shadow-mobile:
+    0 0 0 1px rgba(7, 13, 23, 0.85) inset,
+    0 0 0 2px rgb(var(--arcade-blue-light) / 0.18) inset,
+    0 0.375rem 0 rgba(6, 12, 22, 0.85), 0 0.75rem 1.25rem rgba(0, 0, 0, 0.32);
 
-  /* Accents */
-  --accent-primary: var(--arcade-blue);
-  --accent-primary-alpha: rgba(37, 99, 235, 0.2);
+  --retro-filter-bg: var(--bg-tertiary);
+  --retro-filter-border: rgb(var(--arcade-blue-light) / 0.3);
+  --retro-filter-pill-bg: #1b2f52;
+  --retro-filter-pill-bg-hover: #254272;
+  --retro-filter-pill-bg-active: rgb(var(--arcade-blue));
+
+  --retro-chip-bg: rgba(17, 26, 46, 0.85);
+  --retro-chip-border: rgba(148, 163, 184, 0.35);
+  --retro-chip-text: #adbece;
+  --retro-chip-text-hover: #dbebfa;
 }
 
 /* Base layout */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 body {
   font-family: var(--font-primary);
   background: var(--bg-primary);
@@ -114,7 +136,6 @@ body {
   border: 1px solid var(--border-secondary);
   border-top: none;
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   gap: 0.15rem;
   width: fit-content;
 }
@@ -133,7 +154,6 @@ body {
   gap: 0.4rem;
   transition: var(--transition-smooth);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   white-space: nowrap;
   min-width: 70px;
   justify-content: center;
@@ -146,16 +166,13 @@ body {
 }
 
 .view-tabs .view-tab-active {
-  background: var(--arcade-blue);
+  background: rgb(var(--arcade-blue));
   color: var(--text-primary);
   font-weight: 600;
-  box-shadow:
-    0 0 0 1px rgba(37, 99, 235, 0.5),
-    0 2px 8px rgba(37, 99, 235, 0.2);
 }
 
 .view-tabs .view-tab-active:hover {
-  background: var(--arcade-blue-light);
+  background: rgb(var(--arcade-blue-light));
 }
 
 .tab-icon,
@@ -168,8 +185,8 @@ body {
   margin: 0 -1rem 0;
   padding-top: 2.5rem;
   overflow: hidden;
-  border-bottom: 1px solid rgba(37, 99, 235, 0.35);
-  background: linear-gradient(175deg, #020509 0%, #050d1f 40%, #030812 100%);
+  border-bottom: 1px solid rgb(var(--arcade-blue) / 0.35);
+  background: linear-gradient(172deg, #020509 0%, #060f22 37%, #020c16 100%);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -186,28 +203,28 @@ body {
   inset: -20px;
   background:
     radial-gradient(
-      ellipse 50% 120% at 5% 40%,
-      rgba(37, 99, 235, 0.18) 0%,
+      ellipse 50% 115% at 5% 40%,
+      rgb(var(--arcade-blue) / 0.18) 0%,
       transparent 55%
     ),
     radial-gradient(
-      ellipse 50% 120% at 95% 40%,
-      rgba(37, 99, 235, 0.18) 0%,
+      ellipse 50% 125% at 95% 40%,
+      rgb(var(--arcade-blue) / 0.18) 0%,
       transparent 55%
     ),
     radial-gradient(
-      ellipse 40% 70% at 50% 110%,
+      ellipse 45% 70% at 50% 110%,
       rgba(109, 40, 217, 0.07) 0%,
       transparent 60%
     ),
     radial-gradient(
-      ellipse 28% 55% at 22% -15%,
-      rgba(34, 211, 238, 0.05) 0%,
+      ellipse 30% 50% at 20% -10%,
+      rgb(var(--arcade-blue-light) / 0.05) 0%,
       transparent 55%
     ),
     radial-gradient(
-      ellipse 28% 55% at 78% -15%,
-      rgba(34, 211, 238, 0.05) 0%,
+      ellipse 25% 60% at 80% -15%,
+      rgb(var(--arcade-blue-light) / 0.05) 0%,
       transparent 55%
     );
   filter: blur(32px);
@@ -263,7 +280,6 @@ body {
   font-size: 0.875rem;
   color: var(--text-subtle);
   font-weight: 400;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -288,19 +304,40 @@ body {
 
 /* Shared game elements */
 .game-name {
+  font-family: var(--font-arcade-ui);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
-  letter-spacing: -0.025em;
 }
 
 .game-emoji {
-  font-size: 1.125rem;
+  font-size: 1.1em;
   line-height: 1;
   flex-shrink: 0;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+.game-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0.35rem 0 0.2rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.44rem;
+  background: var(--retro-chip-bg);
+  border: 1px solid var(--retro-chip-border);
+  border-radius: var(--radius-sm);
+  color: var(--retro-chip-text);
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  transition: var(--transition-smooth);
 }
 
 /* Footer */
@@ -315,11 +352,10 @@ body {
 
 .site-footer p {
   margin: 0;
-  letter-spacing: 0.02em;
 }
 
 .site-footer a {
-  color: var(--arcade-blue-light);
+  color: rgb(var(--arcade-blue-light));
   text-decoration: none;
   font-weight: 500;
 }
@@ -328,12 +364,6 @@ body {
   color: var(--text-secondary);
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-.site-footer a:focus-visible {
-  outline: 2px solid var(--arcade-blue);
-  outline-offset: 2px;
-  border-radius: 2px;
 }
 
 /* Responsive */

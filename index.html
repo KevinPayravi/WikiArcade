@@ -39,6 +39,10 @@
       href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=block"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="preload" href="games.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="styles/base.css" />
     <link rel="stylesheet" href="styles/grid-view.css" />
@@ -254,6 +258,7 @@
                   >
                     Use the arrows to browse through available games.
                   </p>
+                  <p class="scroll-game-author" id="scrollGameAuthor"></p>
                   <button class="game-status" id="gameStatus">Play Now</button>
                 </div>
               </div>
@@ -269,6 +274,9 @@
       <div class="screen-bezel">
         <div class="screen-content">
           <div class="screen-overlay"></div>
+          <div class="insert-coin-overlay" id="insertCoinOverlay" aria-hidden="true">
+            <div class="insert-coin-text">INSERT COIN</div>
+          </div>
           <header class="arcade-header">
             <div class="lives-display">Lives: ❤️❤️❤️</div>
             <div class="credits-display">Credits: 0</div>
