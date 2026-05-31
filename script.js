@@ -39,6 +39,8 @@ class ViewManager {
     document.body.style.overflow = isArcade ? "hidden" : "auto";
     document.body.classList.toggle("arcade-mode", isArcade);
 
+    window.wikiGamesArcade?.ensureViewBuilt(viewName);
+
     // Scroll to top
     if (!isArcade) {
       requestAnimationFrame(() => {
@@ -109,7 +111,7 @@ class WikiGamesArcade {
       this.currentFilter = "all";
       this.mobileFilterActive = false;
 
-      this.buildAllViews();
+      this.buildGridView();
       this.setupControls();
       this.setupFilters();
       this.updateCredits();
@@ -134,10 +136,14 @@ class WikiGamesArcade {
     return ((index % length) + length) % length;
   }
 
-  buildAllViews() {
-    this.buildArcadeView();
-    this.buildGridView();
-    this.buildScrollView();
+  ensureViewBuilt(viewName) {
+    if (viewName === "scroll" && !this.scrollViewBuilt) {
+      this.buildScrollView();
+      this.scrollViewBuilt = true;
+    } else if (viewName === "arcade" && !this.arcadeViewBuilt) {
+      this.buildArcadeView();
+      this.arcadeViewBuilt = true;
+    }
   }
 
   buildArcadeView() {
@@ -160,7 +166,7 @@ class WikiGamesArcade {
         : "";
 
       card.innerHTML = `
-                <img class="arcade-game-card-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
+                <img class="arcade-game-card-image" src="assets/previews/${game.preview}" alt="${game.name} Preview" loading="lazy">
                 <div class="arcade-game-card-title">
                     ${emoji}<span>${game.name}</span>
                 </div>
@@ -386,7 +392,7 @@ class WikiGamesArcade {
 
     const fragment = document.createDocumentFragment();
 
-    this.allGames.forEach((game) => {
+    this.allGames.forEach((game, i) => {
       const card = document.createElement("div");
       card.className = "grid-arcade-game-card";
       card.dataset.gameId = game.id;
@@ -410,11 +416,13 @@ class WikiGamesArcade {
           ? `<div class="game-tags">${game.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
           : "";
 
+      const imgLoading = i < 6 ? "eager" : "lazy";
+
       card.innerHTML = `
                 <div class="grid-game-title">
                     ${emoji}<span>${game.name}</span>
                 </div>
-                <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview">
+                <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview" loading="${imgLoading}">
                 <div class="grid-game-description">${game.description}</div>
                 ${tagsHtml}
                 ${author}
