@@ -75,7 +75,7 @@
     {
       "id": "wikiwho",
       "name": "WikiWho?",
-      "emoji": "🔍",
+      "emoji": "🕴️",
       "subtitle": "Wikipedia Biography Guesser",
       "description": "Identify famous people from clues in their Wikipedia biographies.",
       "author": "Rami Kalai",
