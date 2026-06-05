@@ -30,35 +30,20 @@
 .grid-arcade-game-card:hover {
   border-color: var(--retro-panel-border-hover);
   background: var(--retro-panel-bg-hover);
-  transform: translateY(-4px);
-}
-
-.grid-arcade-game-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    180deg,
-    rgba(7, 13, 23, 0.025) 0,
-    rgba(7, 13, 23, 0.025) 2px,
-    rgba(255, 255, 255, 0) 2px,
-    rgba(255, 255, 255, 0) 6px
-  );
-  mix-blend-mode: screen;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .grid-game-image {
-  width: 100%;
+  width: calc(100% + 1.5rem);
+  margin: 0.25rem -0.75rem 0.75rem;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  margin: 0.5rem 0 0.6rem;
+  border: none;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
   background: #0f1b2f;
   display: block;
 }
-
 
 .grid-game-title {
   font-family: var(--font-arcade-ui);
@@ -88,6 +73,10 @@
   border-top: 1px solid rgba(148, 163, 184, 0.12);
   background: rgba(0, 0, 0, 0.15);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.grid-arcade-game-card .game-tags {
+  justify-content: center;
 }
 
 /* Filter Controls */
@@ -245,6 +234,11 @@
 
   .grid-arcade-game-card {
     padding: 0.6rem;
+  }
+
+  .grid-arcade-game-card .grid-game-image {
+    width: calc(100% + 1.2rem);
+    margin: 0.2rem -0.6rem 0.6rem;
   }
 
   .grid-arcade-game-card:hover {

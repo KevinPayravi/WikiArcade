@@ -807,7 +807,7 @@ class WikiGamesArcade {
     if (!this.isPowered) return;
 
     this.credits++;
-    this.updateCredits();
+    this.updateCredits(true);
     this.coinSlot?.classList.remove("needs-coins");
     this.hideInsertCoinOverlay();
 
@@ -823,13 +823,14 @@ class WikiGamesArcade {
     this.coinSlot?.classList.add("needs-coins");
   }
 
-  updateCredits() {
+  updateCredits(flash = false) {
     if (this.creditsDisplay) {
       this.creditsDisplay.textContent = `Credits: ${this.credits}`;
-      this.creditsDisplay.style.textShadow = "0 0 10px rgba(251, 191, 36, 0.8)";
-      setTimeout(() => {
-        this.creditsDisplay.style.textShadow = "";
-      }, 300);
+      if (flash) {
+        this.creditsDisplay.classList.remove("credits-flash");
+        void this.creditsDisplay.offsetWidth;
+        this.creditsDisplay.classList.add("credits-flash");
+      }
     }
   }
 }
