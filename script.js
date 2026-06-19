@@ -340,7 +340,9 @@ class WikiGamesArcade {
       this.gameDescription.textContent = game.description;
 
     if (this.scrollGameAuthor)
-      this.scrollGameAuthor.textContent = game.author ? `By ${game.author}` : "";
+      this.scrollGameAuthor.textContent = game.author
+        ? `By ${game.author}`
+        : "";
 
     if (this.gameStatus) {
       this.gameStatus.textContent = "Play Now";
@@ -396,6 +398,7 @@ class WikiGamesArcade {
       const card = document.createElement("div");
       card.className = "grid-arcade-game-card";
       card.dataset.gameId = game.id;
+      card.dataset.primaryTag = game.tags?.[0] || "";
       card.tabIndex = 0;
       card.setAttribute("role", "button");
       card.setAttribute("aria-label", `Play ${game.name}`);
@@ -410,21 +413,26 @@ class WikiGamesArcade {
         ? `<div class="grid-game-author">By ${game.author}</div>`
         : "";
 
-      // Add tags display
+      const tagLabels = {
+        "wikigamejam-nyc-2025": "NYC '25",
+        "wikigamejam-sf-2026": "SF '26",
+      };
       const tagsHtml =
         game.tags && game.tags.length > 0
-          ? `<div class="game-tags">${game.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
+          ? `<div class="game-tags">${game.tags.map((tag) => `<span class="tag" data-tag="${tag}">${tagLabels[tag] || tag}</span>`).join("")}</div>`
           : "";
 
       const imgLoading = i < 6 ? "eager" : "lazy";
 
       card.innerHTML = `
-                <div class="grid-game-title">
-                    ${emoji}<span>${game.name}</span>
+                <div class="grid-game-image-wrap">
+                    <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview" loading="${imgLoading}">
                 </div>
-                <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview" loading="${imgLoading}">
-                <div class="grid-game-description">${game.description}</div>
-                ${tagsHtml}
+                <div class="grid-game-body">
+                    <div class="grid-game-title">${emoji}<span>${game.name}</span></div>
+                    <div class="grid-game-description">${game.description}</div>
+                    ${tagsHtml}
+                </div>
                 ${author}
             `;
 
