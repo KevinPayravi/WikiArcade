@@ -235,6 +235,22 @@
   border-color: rgba(104, 36, 204, 1);
 }
 
+/* exploration */
+.tag[data-tag="exploration"] {
+  background: rgba(2, 132, 110, 0.12);
+  border-color: rgba(2, 132, 110, 0.38);
+  color: #2dd4bf;
+}
+#filter-exploration + label {
+  background: rgba(2, 132, 110, 0.09);
+  border-color: rgba(2, 132, 110, 0.38);
+}
+#filter-exploration:checked + label {
+  background: rgba(2, 132, 110, 0.68);
+  border-color: rgba(2, 132, 110, 1);
+  color: #f0fdfa;
+}
+
 /* art */
 .tag[data-tag="art"] {
   background: rgba(176, 24, 90, 0.12);

@@ -491,6 +491,42 @@
       "status": "available",
       "url": "https://wikicity.app/",
       "tags": ["arcade"]
+    },
+    {
+      "id": "wikispy",
+      "name": "Wiki Spy",
+      "emoji": "🕵️‍♂️",
+      "subtitle": "Endless I-Spy Collage",
+      "description": "Endless I-Spy collage of objects cut out from Wikipedia.",
+      "author": "neal.fun",
+      "preview": "wikispy.png",
+      "status": "available",
+      "url": "https://neal.fun/wiki-spy/",
+      "tags": ["exploration", "mobile"]
+    },
+    {
+      "id": "wikipediafileexplorer",
+      "name": "Wikipedia File Explorer",
+      "emoji": "📂",
+      "subtitle": "Windows XP-inspired Wiki Explorer",
+      "description": "Explore Wikipedia files in a Windows XP-inspired interface.",
+      "author": "Sami Smith",
+      "preview": "wikipediafileexplorer.png",
+      "status": "available",
+      "url": "https://explorer.samismith.com/",
+      "tags": ["exploration", "mobile"]
+    },
+    {
+      "id": "wikiboard",
+      "name": "wiki_board",
+      "emoji": "📋",
+      "subtitle": "Interactive Wikipedia Board",
+      "description": "Interactive board to explore Wikipedia articles.",
+      "author": "Tinus",
+      "preview": "wikiboard.png",
+      "status": "available",
+      "url": "https://wikiboard.org/",
+      "tags": ["exploration"]
     }
   ]
 }
