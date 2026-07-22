@@ -6,8 +6,8 @@
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
   padding: 0 1rem;
 }
 
@@ -18,7 +18,8 @@
   border-radius: var(--radius-md);
   padding: 0;
   overflow: hidden;
-  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
   position: relative;
   width: 100%;
   display: flex;
@@ -30,14 +31,14 @@
   border-color: rgb(var(--arcade-blue-light) / 0.4);
   background: var(--retro-panel-bg-hover);
   transform: translateY(-3px);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-xl);
 }
 
 /* Card image */
 .grid-game-image-wrap {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .grid-game-image {
@@ -45,8 +46,8 @@
   aspect-ratio: 3 / 2;
   object-fit: cover;
   display: block;
-  background: #0c1826;
-  transition: transform 320ms cubic-bezier(0.19, 1, 0.22, 1);
+  background: var(--bg-primary);
+  transition: transform 300ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .grid-arcade-game-card:hover .grid-game-image {
@@ -71,9 +72,9 @@
       transparent 25%,
       rgba(0, 0, 0, 0.5) 100%
     ),
-    rgba(2, 8, 22, 0.76);
+    rgba(0, 0, 0, 0.75);
   opacity: 0;
-  transition: opacity 180ms ease;
+  transition: opacity 200ms ease;
   z-index: 1;
   pointer-events: none;
 }
@@ -97,7 +98,7 @@
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   opacity: 0;
-  transition: opacity 180ms ease;
+  transition: opacity 200ms ease;
   z-index: 2;
   pointer-events: none;
 }
@@ -108,7 +109,7 @@
 
 /* Card body */
 .grid-game-body {
-  padding: 0.6rem 0.75rem 0.5rem;
+  padding: 0.55rem 0.75rem 0.4rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -116,8 +117,8 @@
 
 .grid-game-title {
   font-family: var(--font-arcade-ui);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   margin-bottom: 0.3rem;
   line-height: 1.25;
   color: var(--text-primary);
@@ -130,6 +131,7 @@
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -137,7 +139,7 @@
 /* Card tags */
 .grid-arcade-game-card .game-tags {
   justify-content: flex-start;
-  margin: 0.4rem 0 0;
+  margin: 0.5rem 0 0;
 }
 
 .grid-arcade-game-card .tag {
@@ -150,213 +152,96 @@
 .grid-game-author {
   font-size: 0.7rem;
   color: var(--text-subtle);
-  padding: 0.3rem 0.75rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(0, 0, 0, 0.12);
+  padding: 0.1rem 0.75rem 0.55rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Category Colors
-  1. Card tag chip (.tag[data-tag="..."])
-  2. Filter pill, unselected (#filter-... + label)
-  3. Filter pill, selected (#filter-...:checked + label) */
+  1. Card tag pill (.tag[data-tag="..."])
+  2. Filter pill label[data-tag="..."] */
 
-/* trivia */
-.tag[data-tag="trivia"] {
-  background: rgba(201, 124, 16, 0.12);
-  border-color: rgba(201, 124, 16, 0.38);
-  color: #f6a428;
+/* Color tokens */
+[data-tag="trivia"] {
+  --tag-rgb: 201 124 16;
 }
-#filter-trivia + label {
-  background: rgba(201, 124, 16, 0.09);
-  border-color: rgba(201, 124, 16, 0.38);
+[data-tag="puzzle"] {
+  --tag-rgb: 8 132 168;
 }
-#filter-trivia:checked + label {
-  background: rgba(201, 124, 16, 0.68);
-  border-color: rgba(201, 124, 16, 1);
+[data-tag="arcade"] {
+  --tag-rgb: 181 34 34;
 }
-
-/* puzzle */
-.tag[data-tag="puzzle"] {
-  background: rgba(8, 132, 168, 0.12);
-  border-color: rgba(8, 132, 168, 0.38);
-  color: #22ccee;
+[data-tag="wikirace"] {
+  --tag-rgb: 10 122 82;
 }
-#filter-puzzle + label {
-  background: rgba(8, 132, 168, 0.09);
-  border-color: rgba(8, 132, 168, 0.38);
+[data-tag="adventure"] {
+  --tag-rgb: 104 36 204;
 }
-#filter-puzzle:checked + label {
-  background: rgba(8, 132, 168, 0.68);
-  border-color: rgba(8, 132, 168, 1);
+[data-tag="exploration"] {
+  --tag-rgb: 2 132 110;
 }
-
-/* arcade */
-.tag[data-tag="arcade"] {
-  background: rgba(181, 34, 34, 0.12);
-  border-color: rgba(181, 34, 34, 0.38);
-  color: #f47070;
+[data-tag="art"] {
+  --tag-rgb: 176 24 90;
 }
-#filter-arcade + label {
-  background: rgba(181, 34, 34, 0.09);
-  border-color: rgba(181, 34, 34, 0.38);
+[data-tag="incremental"] {
+  --tag-rgb: 58 114 0;
 }
-#filter-arcade:checked + label {
-  background: rgba(181, 34, 34, 0.68);
-  border-color: rgba(181, 34, 34, 1);
+[data-tag="contribute"] {
+  --tag-rgb: 196 92 0;
+}
+[data-tag="daily"] {
+  --tag-rgb: 40 120 220;
+}
+[data-tag="fortunes"] {
+  --tag-rgb: 210 158 16;
+}
+[data-tag="wikigamejam-nyc-2025"],
+[data-tag="wikigamejam-sf-2026"] {
+  --tag-rgb: 13 180 175;
+}
+[data-tag="mobile"] {
+  --tag-rgb: 100 116 139;
 }
 
-/* wikirace */
-.tag[data-tag="wikirace"] {
-  background: rgba(10, 122, 82, 0.12);
-  border-color: rgba(10, 122, 82, 0.38);
-  color: #34d398;
-}
-#filter-wikirace + label {
-  background: rgba(10, 122, 82, 0.09);
-  border-color: rgba(10, 122, 82, 0.38);
-}
-#filter-wikirace:checked + label {
-  background: rgba(10, 122, 82, 0.68);
-  border-color: rgba(10, 122, 82, 1);
+/* Colored tag pills; text lightened for contrast on the dark chip bg */
+.tag[data-tag] {
+  background: rgb(var(--tag-rgb, 148 163 184) / 0.12);
+  border-color: rgb(var(--tag-rgb, 148 163 184) / 0.4);
+  color: color-mix(in srgb, rgb(var(--tag-rgb, 148 163 184)) 60%, #fff);
 }
 
-/* adventure */
-.tag[data-tag="adventure"] {
-  background: rgba(104, 36, 204, 0.12);
-  border-color: rgba(104, 36, 204, 0.38);
-  color: #aa82fa;
-}
-#filter-adventure + label {
-  background: rgba(104, 36, 204, 0.09);
-  border-color: rgba(104, 36, 204, 0.38);
-}
-#filter-adventure:checked + label {
-  background: rgba(104, 36, 204, 0.68);
-  border-color: rgba(104, 36, 204, 1);
+/* Filter pill (unselected) */
+.filter-group label[data-tag]:not(.mobile-toggle-label) {
+  background: rgb(var(--tag-rgb) / 0.1);
+  border-color: rgb(var(--tag-rgb) / 0.4);
 }
 
-/* exploration */
-.tag[data-tag="exploration"] {
-  background: rgba(2, 132, 110, 0.12);
-  border-color: rgba(2, 132, 110, 0.38);
-  color: #2dd4bf;
-}
-#filter-exploration + label {
-  background: rgba(2, 132, 110, 0.09);
-  border-color: rgba(2, 132, 110, 0.38);
-}
-#filter-exploration:checked + label {
-  background: rgba(2, 132, 110, 0.68);
-  border-color: rgba(2, 132, 110, 1);
-  color: #f0fdfa;
+/* Filter pill (selected) */
+.filter-group input:checked + label[data-tag]:not(.mobile-toggle-label) {
+  background: rgb(var(--tag-rgb) / 0.7);
+  border-color: rgb(var(--tag-rgb) / 1);
 }
 
-/* art */
-.tag[data-tag="art"] {
-  background: rgba(176, 24, 90, 0.12);
-  border-color: rgba(176, 24, 90, 0.38);
-  color: #f472b6;
-}
-#filter-art + label {
-  background: rgba(176, 24, 90, 0.09);
-  border-color: rgba(176, 24, 90, 0.38);
-}
-#filter-art:checked + label {
-  background: rgba(176, 24, 90, 0.68);
-  border-color: rgba(176, 24, 90, 1);
-}
-
-/* incremental */
-.tag[data-tag="incremental"] {
-  background: rgba(58, 114, 0, 0.14);
-  border-color: rgba(58, 114, 0, 0.38);
-  color: #86efac;
-}
-#filter-incremental + label {
-  background: rgba(58, 114, 0, 0.1);
-  border-color: rgba(58, 114, 0, 0.38);
-}
-#filter-incremental:checked + label {
-  background: rgba(58, 114, 0, 0.68);
-  border-color: rgba(58, 114, 0, 1);
-}
-
-/* contribute */
-.tag[data-tag="contribute"] {
-  background: rgba(196, 92, 0, 0.12);
-  border-color: rgba(196, 92, 0, 0.38);
-  color: #fb923c;
-}
-#filter-contribute + label {
-  background: rgba(196, 92, 0, 0.09);
-  border-color: rgba(196, 92, 0, 0.38);
-}
-#filter-contribute:checked + label {
-  background: rgba(196, 92, 0, 0.68);
-  border-color: rgba(196, 92, 0, 1);
-}
-
-/* daily */
-.tag[data-tag="daily"] {
-  background: rgba(40, 120, 220, 0.12);
-  border-color: rgba(40, 120, 220, 0.38);
-  color: #7eb8f7;
-}
-#filter-daily + label {
-  background: rgba(40, 120, 220, 0.1);
-  border-color: rgba(40, 120, 220, 0.38);
-}
-#filter-daily:checked + label {
-  background: rgba(40, 120, 220, 0.78);
-  border-color: rgba(40, 120, 220, 1);
-}
-
-/* fortunes */
-.tag[data-tag="fortunes"] {
-  background: rgba(210, 158, 16, 0.12);
-  border-color: rgba(210, 158, 16, 0.38);
-  color: #fcd34d;
-}
-#filter-fortunes + label {
-  background: rgba(210, 158, 16, 0.1);
-  border-color: rgba(210, 158, 16, 0.38);
-}
-#filter-fortunes:checked + label {
-  background: rgba(210, 158, 16, 0.78);
-  border-color: rgba(210, 158, 16, 1);
+/* Dark-text overrides for light-bg tags */
+.filter-group
+  input:checked
+  + label[data-tag="fortunes"]:not(.mobile-toggle-label) {
   color: #1a1000;
 }
-
-/* mobile (tag only — no filter pill) */
-.tag[data-tag="mobile"] {
-  background: rgba(50, 60, 80, 0.2);
-  border-color: rgba(100, 120, 148, 0.3);
-  color: #8ca0b4;
-}
-
-/* wikigamejam */
-.tag[data-tag="wikigamejam-nyc-2025"],
-.tag[data-tag="wikigamejam-sf-2026"] {
-  background: rgba(13, 180, 175, 0.12);
-  border-color: rgba(13, 180, 175, 0.38);
-  color: #5eead4;
-}
-#filter-wikigamejam-nyc-2025 + label,
-#filter-wikigamejam-sf-2026 + label {
-  background: rgba(13, 180, 175, 0.09);
-  border-color: rgba(13, 180, 175, 0.38);
-}
-#filter-wikigamejam-nyc-2025:checked + label,
-#filter-wikigamejam-sf-2026:checked + label {
-  background: rgba(13, 180, 175, 0.72);
-  border-color: rgba(13, 180, 175, 1);
+.filter-group
+  input:checked
+  + label[data-tag="wikigamejam-nyc-2025"]:not(.mobile-toggle-label),
+.filter-group
+  input:checked
+  + label[data-tag="wikigamejam-sf-2026"]:not(.mobile-toggle-label) {
   color: #042f2e;
 }
 
 /* Filters */
 .filter-controls {
-  margin: 0.75rem 1rem 1.1rem;
-  padding: 0.7rem 1rem;
+  margin: 0.75rem 1rem 1rem;
+  padding: 0.75rem 1rem;
   background: var(--retro-filter-bg);
   border: 1px solid var(--retro-filter-border);
   border-radius: var(--radius-md);
@@ -365,7 +250,7 @@
 .filter-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
 }
@@ -388,7 +273,7 @@
 .filter-group label:not(.mobile-toggle-label) {
   padding: 0.3rem 0.75rem;
   background: var(--retro-filter-pill-bg);
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid var(--retro-chip-border);
   border-radius: var(--radius-md);
   color: var(--text-secondary);
   font-size: 0.8rem;
@@ -421,7 +306,7 @@
 .mobile-toggle-wrap {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.2rem;
+  margin-left: 0.25rem;
 }
 
 .mobile-toggle-label {
@@ -444,7 +329,7 @@
   height: 1.1rem;
   border-radius: var(--radius-sm);
   background: #101c31;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid var(--retro-chip-border);
   display: inline-flex;
   align-items: center;
   padding: 0.1rem;
@@ -490,7 +375,7 @@
 /* Responsive */
 @media (max-width: 640px) {
   .games-grid {
-    gap: 0.9rem;
+    gap: 0.75rem;
     padding: 0 0.5rem;
   }
 
@@ -499,7 +384,7 @@
   }
 
   .filter-controls {
-    margin: 0.5rem 0.25rem 0.9rem;
+    margin: 0.5rem 0.5rem 1rem;
     padding: 0.5rem 0.75rem;
   }
 

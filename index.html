@@ -48,20 +48,13 @@
   <body>
     <!-- View Selection Tabs -->
     <div class="view-tabs" id="viewTabs">
-      <button
-        class="view-tab view-tab-active"
-        data-view="grid"
-        title="Grid View"
-      >
-        <span class="tab-icon">📱</span>
+      <button class="view-tab view-tab-active" data-view="grid">
         <span class="tab-text">Grid</span>
       </button>
-      <button class="view-tab" data-view="scroll" title="Scroll View">
-        <span class="tab-icon">📋</span>
+      <button class="view-tab" data-view="scroll">
         <span class="tab-text">Scroll</span>
       </button>
-      <button class="view-tab" data-view="arcade" title="Arcade View">
-        <span class="tab-icon">🕹️</span>
+      <button class="view-tab" data-view="arcade">
         <span class="tab-text">Arcade</span>
       </button>
     </div>
@@ -106,7 +99,7 @@
               name="gameFilter"
               value="trivia"
             />
-            <label for="filter-trivia">Trivia</label>
+            <label for="filter-trivia" data-tag="trivia">Trivia</label>
 
             <input
               type="radio"
@@ -114,7 +107,7 @@
               name="gameFilter"
               value="puzzle"
             />
-            <label for="filter-puzzle">Puzzle</label>
+            <label for="filter-puzzle" data-tag="puzzle">Puzzle</label>
 
             <input
               type="radio"
@@ -122,7 +115,7 @@
               name="gameFilter"
               value="arcade"
             />
-            <label for="filter-arcade">Arcade</label>
+            <label for="filter-arcade" data-tag="arcade">Arcade</label>
 
             <input
               type="radio"
@@ -130,7 +123,7 @@
               name="gameFilter"
               value="adventure"
             />
-            <label for="filter-adventure">Adventure</label>
+            <label for="filter-adventure" data-tag="adventure">Adventure</label>
 
             <input
               type="radio"
@@ -138,7 +131,9 @@
               name="gameFilter"
               value="exploration"
             />
-            <label for="filter-exploration">Exploration</label>
+            <label for="filter-exploration" data-tag="exploration"
+              >Exploration</label
+            >
 
             <input
               type="radio"
@@ -146,7 +141,7 @@
               name="gameFilter"
               value="wikirace"
             />
-            <label for="filter-wikirace">WikiRace</label>
+            <label for="filter-wikirace" data-tag="wikirace">WikiRace</label>
 
             <input
               type="radio"
@@ -154,10 +149,10 @@
               name="gameFilter"
               value="daily"
             />
-            <label for="filter-daily">Daily</label>
+            <label for="filter-daily" data-tag="daily">Daily</label>
 
             <input type="radio" id="filter-art" name="gameFilter" value="art" />
-            <label for="filter-art">Art</label>
+            <label for="filter-art" data-tag="art">Art</label>
 
             <input
               type="radio"
@@ -165,7 +160,9 @@
               name="gameFilter"
               value="incremental"
             />
-            <label for="filter-incremental">Incremental</label>
+            <label for="filter-incremental" data-tag="incremental"
+              >Incremental</label
+            >
 
             <input
               type="radio"
@@ -173,7 +170,9 @@
               name="gameFilter"
               value="contribute"
             />
-            <label for="filter-contribute">Contribute</label>
+            <label for="filter-contribute" data-tag="contribute"
+              >Contribute</label
+            >
 
             <input
               type="radio"
@@ -181,7 +180,7 @@
               name="gameFilter"
               value="fortunes"
             />
-            <label for="filter-fortunes">Fortunes</label>
+            <label for="filter-fortunes" data-tag="fortunes">Fortunes</label>
 
             <input
               type="radio"
@@ -189,7 +188,9 @@
               name="gameFilter"
               value="wikigamejam-nyc-2025"
             />
-            <label for="filter-wikigamejam-nyc-2025"
+            <label
+              for="filter-wikigamejam-nyc-2025"
+              data-tag="wikigamejam-nyc-2025"
               >WikiGameJam NYC 2025</label
             >
 
@@ -199,7 +200,11 @@
               name="gameFilter"
               value="wikigamejam-sf-2026"
             />
-            <label for="filter-wikigamejam-sf-2026">WikiGameJam SF 2026</label>
+            <label
+              for="filter-wikigamejam-sf-2026"
+              data-tag="wikigamejam-sf-2026"
+              >WikiGameJam SF 2026</label
+            >
 
             <div class="mobile-toggle-wrap">
               <input
@@ -213,7 +218,7 @@
                 class="mobile-toggle-label"
                 aria-label="Toggle mobile friendly games"
               >
-                <span class="mobile-toggle-text">📱 Mobile Friendly</span>
+                <span class="mobile-toggle-text">Mobile Friendly</span>
                 <span class="mobile-switch" aria-hidden="true">
                   <span class="mobile-switch-knob"></span>
                 </span>
@@ -236,11 +241,19 @@
             <div class="game-navigation">
               <div class="selector-indicator" aria-hidden="true"></div>
               <div class="nav-arrows-container">
-                <button class="nav-arrow nav-arrow-up" id="navUp">
-                  <span class="arrow-icon">▲</span>
+                <button
+                  class="nav-arrow nav-arrow-up"
+                  id="navUp"
+                  aria-label="Previous game"
+                >
+                  <span class="arrow-icon" aria-hidden="true">▲</span>
                 </button>
-                <button class="nav-arrow nav-arrow-down" id="navDown">
-                  <span class="arrow-icon">▼</span>
+                <button
+                  class="nav-arrow nav-arrow-down"
+                  id="navDown"
+                  aria-label="Next game"
+                >
+                  <span class="arrow-icon" aria-hidden="true">▼</span>
                 </button>
               </div>
 
@@ -311,32 +324,50 @@
       <div class="control-panel">
         <div class="tabletop-surface">
           <div class="controls-section">
-            <button class="arcade-button arcade-button-left" id="arcadeLeft">
-              <span class="button-icon">◀</span>
+            <button
+              class="arcade-button arcade-button-left"
+              id="arcadeLeft"
+              aria-label="Previous game"
+            >
+              <span class="button-icon" aria-hidden="true">◀</span>
             </button>
 
             <button class="arcade-button arcade-button-play" id="arcadePlay">
               <span class="button-label">START</span>
             </button>
 
-            <button class="arcade-button arcade-button-right" id="arcadeRight">
-              <span class="button-icon">▶</span>
+            <button
+              class="arcade-button arcade-button-right"
+              id="arcadeRight"
+              aria-label="Next game"
+            >
+              <span class="button-icon" aria-hidden="true">▶</span>
             </button>
           </div>
         </div>
 
         <div class="front-panel">
-          <button class="power-button" id="powerButton" title="Power On/Off">
+          <button
+            class="power-button"
+            id="powerButton"
+            title="Power On/Off"
+            aria-label="Power on or off"
+          >
             <div class="power-led" id="powerLed"></div>
           </button>
 
           <div class="coin-section">
-            <div class="coin-display" id="coinSlot" title="Insert Coin">
+            <button
+              class="coin-display"
+              id="coinSlot"
+              title="Insert Coin"
+              aria-label="Insert coin"
+            >
               <div class="coin-text">25¢</div>
               <div class="coin-instruction">
                 <div>INSERT COIN</div>
               </div>
-            </div>
+            </button>
             <div class="coin-slot-vertical">
               <div class="coin-slot-top"></div>
               <div class="coin-slot-bottom"></div>

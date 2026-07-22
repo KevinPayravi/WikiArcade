@@ -198,7 +198,6 @@
 .arcade-game-card-image {
   width: 100%;
   object-fit: cover;
-  object-view-box: top;
   border-radius: var(--radius-xl);
   border: 1px solid rgba(148, 163, 184, 0.2);
   margin-bottom: 0.75rem;
@@ -501,6 +500,11 @@
     0 1px 0 0 var(--btn-ring),
     0 2px 5px rgba(0, 0, 0, 0.45),
     inset 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
+.arcade-button:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .button-icon,

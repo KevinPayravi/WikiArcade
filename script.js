@@ -395,12 +395,11 @@ class WikiGamesArcade {
     const fragment = document.createDocumentFragment();
 
     this.allGames.forEach((game, i) => {
-      const card = document.createElement("div");
+      const card = document.createElement("a");
       card.className = "grid-arcade-game-card";
-      card.dataset.gameId = game.id;
-      card.dataset.primaryTag = game.tags?.[0] || "";
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
+      card.href = game.url;
+      card.target = "_blank";
+      card.rel = "noopener";
       card.setAttribute("aria-label", `Play ${game.name}`);
       if (game.tags && game.tags.length > 0) {
         card.dataset.tags = game.tags.join(",");
@@ -426,7 +425,7 @@ class WikiGamesArcade {
 
       card.innerHTML = `
                 <div class="grid-game-image-wrap">
-                    <img class="grid-game-image" src="assets/previews/${game.preview}" alt="${game.name} Preview" loading="${imgLoading}">
+                    <img class="grid-game-image" src="assets/previews/${game.preview}" alt="" loading="${imgLoading}">
                 </div>
                 <div class="grid-game-body">
                     <div class="grid-game-title">${emoji}<span>${game.name}</span></div>
@@ -440,31 +439,6 @@ class WikiGamesArcade {
     });
 
     this.gamesGrid.appendChild(fragment);
-
-    // Event delegation
-    if (!this.gridCardsDelegated) {
-      this.gamesGrid.addEventListener("click", (e) => {
-        const card = e.target.closest(".grid-arcade-game-card");
-        if (!card) return;
-
-        const gameId = card.dataset.gameId;
-        const game = this.allGames.find((g) => g.id === gameId);
-        if (game) this.playGame(game);
-      });
-
-      this.gamesGrid.addEventListener("keydown", (e) => {
-        if (e.key !== "Enter" && e.key !== " ") return;
-
-        const card = e.target.closest(".grid-arcade-game-card");
-        if (!card) return;
-
-        e.preventDefault();
-        const gameId = card.dataset.gameId;
-        const game = this.allGames.find((g) => g.id === gameId);
-        if (game) this.playGame(game);
-      });
-      this.gridCardsDelegated = true;
-    }
 
     // Apply current filter state
     this.filterGridView();
@@ -550,39 +524,9 @@ class WikiGamesArcade {
   }
 
   updateButtons() {
-    // Scroll view buttons
-    if (this.navUp) {
-      this.navUp.disabled = false;
-      this.navUp.style.opacity = "1";
-    }
-    if (this.navDown) {
-      this.navDown.disabled = false;
-      this.navDown.style.opacity = "1";
-    }
-
-    // Arcade buttons
-    if (!this.isPowered) {
-      [this.arcadeLeft, this.arcadeRight, this.arcadePlay].forEach((btn) => {
-        if (btn) {
-          btn.disabled = true;
-          btn.style.opacity = "0.3";
-        }
-      });
-      return;
-    }
-
-    if (this.arcadeLeft) {
-      this.arcadeLeft.disabled = false;
-      this.arcadeLeft.style.opacity = "1";
-    }
-    if (this.arcadeRight) {
-      this.arcadeRight.disabled = false;
-      this.arcadeRight.style.opacity = "1";
-    }
-    if (this.arcadePlay) {
-      this.arcadePlay.disabled = false;
-      this.arcadePlay.style.opacity = "1";
-    }
+    [this.arcadeLeft, this.arcadeRight, this.arcadePlay].forEach((btn) => {
+      if (btn) btn.disabled = !this.isPowered;
+    });
   }
 
   move(direction) {
@@ -765,9 +709,9 @@ class WikiGamesArcade {
 
   showError() {
     const errorMsg = `
-            <div style="text-align: center; color: #ef4444; padding: 2rem;">
-                <h3>Error Loading Games</h3>
-                <p>Please refresh the page and try again.</p>
+            <div class="no-results">
+                <p>The games could not be loaded.</p>
+                <p>Refresh the page to try again.</p>
             </div>
         `;
 
@@ -859,23 +803,14 @@ function initSpaceMarquee() {
     const s = document.createElement("div");
     const size = 0.4 + Math.random() * 2.2;
     const opacity = 0.2 + Math.random() * 0.75;
-    const twinkle = Math.random() < 0.28;
 
-    s.className = "space-star" + (twinkle ? " space-star-twinkle" : "");
-
-    let style =
+    s.className = "space-star";
+    s.style.cssText =
       `left:${(Math.random() * 100).toFixed(2)}%;` +
       `top:${(Math.random() * 100).toFixed(2)}%;` +
       `width:${size.toFixed(2)}px;height:${size.toFixed(2)}px;` +
-      `--star-opacity:${opacity.toFixed(2)};opacity:${opacity.toFixed(2)};`;
+      `opacity:${opacity.toFixed(2)};`;
 
-    if (twinkle) {
-      style +=
-        `--twinkle-dur:${(2 + Math.random() * 3.5).toFixed(1)}s;` +
-        `--twinkle-delay:${(Math.random() * 5).toFixed(1)}s;`;
-    }
-
-    s.style.cssText = style;
     frag.appendChild(s);
   }
   starsEl.appendChild(frag);
