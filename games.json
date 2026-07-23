@@ -25,6 +25,18 @@
       "tags": ["puzzle", "daily", "mobile"]
     },
     {
+      "id": "canitrustwikipedia",
+      "name": "Can I Trust Wikipedia?",
+      "emoji": "🤝",
+      "subtitle": "Wikipedia Trustworthiness Quiz",
+      "description": "Sort the features into green ticks and red flags.",
+      "author": "Tamsin Braisher & Nyo Dekens",
+      "preview": "canitrustwikipedia.png",
+      "status": "available",
+      "url": "https://wikimedia.be/trustwikigame/",
+      "tags": ["trivia", "mobile"]
+    },
+    {
       "id": "cite",
       "name": "Cite",
       "emoji": "🤔",
