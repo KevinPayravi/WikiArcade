@@ -205,6 +205,18 @@
       "tags": ["trivia", "incremental", "wikigamejam-nyc-2025", "mobile"]
     },
     {
+      "id": "panigma",
+      "name": "Panigma",
+      "emoji": "🧩",
+      "subtitle": "Daily Wikipedia Puzzle Game",
+      "description": "Guess today's Wikipedia articles from a few clues and a picture, against the clock.",
+      "author": "Panigma Team",
+      "preview": "panigma.png",
+      "status": "available",
+      "url": "https://panigma.fr/",
+      "tags": ["puzzle", "daily", "mobile"]
+    },
+    {
       "id": "personallife",
       "name": "Personal Life",
       "emoji": "🕵️",
