@@ -36,7 +36,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&family=Oxanium:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&family=Oxanium:wght@400;500;600;700&family=Silkscreen:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="preload" href="games.json" as="fetch" crossorigin />
@@ -205,30 +205,31 @@
               data-tag="wikigamejam-sf-2026"
               >WikiGameJam SF 2026</label
             >
+          </div>
 
-            <div class="mobile-toggle-wrap">
-              <input
-                type="checkbox"
-                id="filter-mobile"
-                name="mobileFilter"
-                value="mobile"
-              />
-              <label
-                for="filter-mobile"
-                class="mobile-toggle-label"
-                aria-label="Toggle mobile friendly games"
-              >
-                <span class="mobile-toggle-text">Mobile Friendly</span>
-                <span class="mobile-switch" aria-hidden="true">
-                  <span class="mobile-switch-knob"></span>
-                </span>
-              </label>
-            </div>
+          <div class="mobile-toggle-wrap">
+            <input
+              type="checkbox"
+              id="filter-mobile"
+              name="mobileFilter"
+              value="mobile"
+            />
+            <label
+              for="filter-mobile"
+              class="mobile-toggle-label"
+              aria-label="Toggle mobile friendly games"
+            >
+              <span class="mobile-toggle-text">Mobile Friendly</span>
+              <span class="mobile-switch" aria-hidden="true">
+                <span class="mobile-switch-knob"></span>
+              </span>
+            </label>
           </div>
         </div>
 
         <main class="games-grid" id="gamesGrid">
-          <!-- Game cards load here -->
+          <!-- Game cards replace once games.json loads -->
+          <p class="loading-message">Loading…</p>
         </main>
       </div>
     </div>
@@ -239,7 +240,6 @@
         <div class="game-selection">
           <div class="selection-layout">
             <div class="game-navigation">
-              <div class="selector-indicator" aria-hidden="true"></div>
               <div class="nav-arrows-container">
                 <button
                   class="nav-arrow nav-arrow-up"
@@ -284,7 +284,9 @@
                     Use the arrows to browse through available games.
                   </p>
                   <p class="scroll-game-author" id="scrollGameAuthor"></p>
-                  <button class="game-status" id="gameStatus">Play Now</button>
+                  <button class="game-status" id="gameStatus">
+                    Press Start
+                  </button>
                 </div>
               </div>
             </div>

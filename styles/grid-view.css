@@ -1,9 +1,4 @@
 /* Layout */
-.grid-view {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -16,22 +11,20 @@
   background: var(--retro-panel-bg);
   border: 1px solid var(--retro-panel-border);
   border-radius: var(--radius-md);
-  padding: 0;
   overflow: hidden;
   color: inherit;
   text-decoration: none;
   position: relative;
-  width: 100%;
   display: flex;
   flex-direction: column;
   transition: var(--transition-smooth);
 }
 
-.grid-arcade-game-card:hover {
-  border-color: rgb(var(--arcade-blue-light) / 0.4);
+.grid-arcade-game-card:is(:hover, :focus-visible) {
+  border-color: var(--retro-panel-border-hover);
   background: var(--retro-panel-bg-hover);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 0 rgb(var(--arcade-blue));
 }
 
 /* Card image */
@@ -47,18 +40,20 @@
   object-fit: cover;
   display: block;
   background: var(--bg-primary);
-  transition: transform 300ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.grid-arcade-game-card:hover .grid-game-image {
-  transform: scale(1.04);
-}
-
-/* Scan lines on hover */
-.grid-game-image-wrap::before {
-  content: "";
+/* Hover overlay (scan lines and play text) */
+.grid-game-image-wrap::before,
+.grid-game-image-wrap::after {
   position: absolute;
   inset: 0;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.grid-game-image-wrap::before {
+  content: "";
   background:
     repeating-linear-gradient(
       to bottom,
@@ -73,37 +68,23 @@
       rgba(0, 0, 0, 0.5) 100%
     ),
     rgba(0, 0, 0, 0.75);
-  opacity: 0;
-  transition: opacity 200ms ease;
   z-index: 1;
-  pointer-events: none;
 }
 
-.grid-arcade-game-card:hover .grid-game-image-wrap::before {
-  opacity: 1;
-}
-
-/* Play text on hover */
 .grid-game-image-wrap::after {
   content: "▶  PLAY";
-  position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-arcade);
-  font-size: 1.8rem;
+  font-family: var(--font-pixel);
+  font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  transition: opacity 200ms ease;
   z-index: 2;
-  pointer-events: none;
 }
 
-.grid-arcade-game-card:hover .grid-game-image-wrap::after {
+.grid-arcade-game-card:is(:hover, :focus-visible) .grid-game-image-wrap::before,
+.grid-arcade-game-card:is(:hover, :focus-visible) .grid-game-image-wrap::after {
   opacity: 1;
 }
 
@@ -137,15 +118,20 @@
 }
 
 /* Card tags */
-.grid-arcade-game-card .game-tags {
-  justify-content: flex-start;
-  margin: 0.5rem 0 0;
+.game-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
 }
 
-.grid-arcade-game-card .tag {
+.tag {
   font-size: 0.6rem;
-  letter-spacing: 0.06em;
   padding: 0.2rem 0.4rem;
+  border: 1px solid var(--retro-chip-border);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Card author */
@@ -160,9 +146,12 @@
 
 /* Category Colors
   1. Card tag pill (.tag[data-tag="..."])
-  2. Filter pill label[data-tag="..."] */
+  2. Filter pill (label[data-tag="..."], under Filters) */
 
 /* Color tokens */
+[data-tag] {
+  --tag-rgb: 148 163 184;
+}
 [data-tag="trivia"] {
   --tag-rgb: 201 124 16;
 }
@@ -206,36 +195,9 @@
 
 /* Colored tag pills; text lightened for contrast on the dark chip bg */
 .tag[data-tag] {
-  background: rgb(var(--tag-rgb, 148 163 184) / 0.12);
-  border-color: rgb(var(--tag-rgb, 148 163 184) / 0.4);
-  color: color-mix(in srgb, rgb(var(--tag-rgb, 148 163 184)) 60%, #fff);
-}
-
-/* Filter pill (unselected) */
-.filter-group label[data-tag]:not(.mobile-toggle-label) {
-  background: rgb(var(--tag-rgb) / 0.1);
+  background: rgb(var(--tag-rgb) / 0.12);
   border-color: rgb(var(--tag-rgb) / 0.4);
-}
-
-/* Filter pill (selected) */
-.filter-group input:checked + label[data-tag]:not(.mobile-toggle-label) {
-  background: rgb(var(--tag-rgb) / 0.7);
-  border-color: rgb(var(--tag-rgb) / 1);
-}
-
-/* Dark-text overrides for light-bg tags */
-.filter-group
-  input:checked
-  + label[data-tag="fortunes"]:not(.mobile-toggle-label) {
-  color: #1a1000;
-}
-.filter-group
-  input:checked
-  + label[data-tag="wikigamejam-nyc-2025"]:not(.mobile-toggle-label),
-.filter-group
-  input:checked
-  + label[data-tag="wikigamejam-sf-2026"]:not(.mobile-toggle-label) {
-  color: #042f2e;
+  color: color-mix(in srgb, rgb(var(--tag-rgb)) 55%, #fff);
 }
 
 /* Filters */
@@ -245,9 +207,6 @@
   background: var(--retro-filter-bg);
   border: 1px solid var(--retro-filter-border);
   border-radius: var(--radius-md);
-}
-
-.filter-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -255,8 +214,11 @@
   justify-content: center;
 }
 
-.filter-group input[type="radio"],
-.filter-group input[type="checkbox"] {
+.filter-group {
+  display: contents;
+}
+
+.filter-controls input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -269,25 +231,29 @@
   white-space: nowrap;
 }
 
+/* Filter label text (pills and mobile toggle) */
+.filter-controls label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
 /* Filter pill base */
-.filter-group label:not(.mobile-toggle-label) {
+.filter-group label {
   padding: 0.3rem 0.75rem;
   background: var(--retro-filter-pill-bg);
   border: 1px solid var(--retro-chip-border);
   border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
   transition: var(--transition-smooth);
-  white-space: nowrap;
 }
 
-.filter-group label:not(.mobile-toggle-label):hover {
+.filter-group label:hover {
   filter: brightness(1.2);
 }
 
-.filter-group input[type="radio"]:focus-visible + label {
+.filter-controls input:focus-visible + label {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
@@ -302,10 +268,30 @@
   color: #fff;
 }
 
+/* Category pill (unselected) */
+.filter-group label[data-tag] {
+  background: rgb(var(--tag-rgb) / 0.1);
+  border-color: rgb(var(--tag-rgb) / 0.4);
+}
+
+/* Category pill (selected) */
+.filter-group input:checked + label[data-tag] {
+  background: rgb(var(--tag-rgb) / 0.7);
+  border-color: rgb(var(--tag-rgb));
+}
+
+/* Dark-text overrides */
+.filter-group input:checked + label[data-tag="fortunes"] {
+  color: #1a1000;
+}
+.filter-group input:checked + label[data-tag="wikigamejam-nyc-2025"],
+.filter-group input:checked + label[data-tag="wikigamejam-sf-2026"] {
+  color: #042f2e;
+}
+
 /* Mobile toggle */
 .mobile-toggle-wrap {
   display: inline-flex;
-  align-items: center;
   margin-left: 0.25rem;
 }
 
@@ -314,21 +300,14 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.2rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-}
-
-.mobile-toggle-text {
-  font-size: 0.8rem;
-  font-weight: 600;
-  white-space: nowrap;
+  border-radius: var(--radius-md);
 }
 
 .mobile-switch {
   width: 2rem;
   height: 1.1rem;
   border-radius: var(--radius-sm);
-  background: #101c31;
+  background: var(--bg-secondary);
   border: 1px solid var(--retro-chip-border);
   display: inline-flex;
   align-items: center;
@@ -341,7 +320,6 @@
   height: 0.8rem;
   border-radius: var(--radius-sm);
   background: #b6c8da;
-  transform: translateX(0);
   transition: var(--transition-smooth);
 }
 
@@ -354,24 +332,6 @@
   background: #ecfdf5;
 }
 
-#filter-mobile:focus-visible + .mobile-toggle-label {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-md);
-}
-
-/* No Results */
-.no-results {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--text-secondary);
-}
-
-.no-results p {
-  margin: 0.5rem 0;
-}
-
 /* Responsive */
 @media (max-width: 640px) {
   .games-grid {
@@ -379,27 +339,41 @@
     padding: 0 0.5rem;
   }
 
-  .grid-arcade-game-card:hover {
-    transform: translateY(-2px);
-  }
-
   .filter-controls {
     margin: 0.5rem 0.5rem 1rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0;
   }
 
-  .filter-group label:not(.mobile-toggle-label) {
+  .filter-controls label {
     font-size: 0.7rem;
+  }
+
+  .filter-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.25rem 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-padding-inline: 0.75rem 2.5rem;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 0.75rem,
+      black calc(100% - 2.5rem),
+      transparent
+    );
+  }
+
+  .filter-group label {
     padding: 0.2rem 0.5rem;
   }
 
-  .mobile-toggle-text {
-    font-size: 0.7rem;
+  .filter-group input[type="radio"]:checked + label {
+    padding: calc(0.2rem - 1px) calc(0.5rem - 1px);
   }
 
   .mobile-toggle-wrap {
-    width: 100%;
-    justify-content: center;
     margin-left: 0;
   }
 }

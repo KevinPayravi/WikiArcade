@@ -1,3 +1,8 @@
+const TAG_LABELS = {
+  "wikigamejam-nyc-2025": "NYC '25",
+  "wikigamejam-sf-2026": "SF '26",
+};
+
 class ViewManager {
   constructor() {
     this.currentView = "grid";
@@ -16,7 +21,6 @@ class ViewManager {
   setupTabs() {
     if (!this.views.tabs) return;
 
-    // Event delegation
     this.views.tabs.addEventListener("click", (e) => {
       const tab = e.target.closest(".view-tab");
       if (!tab) return;
@@ -51,8 +55,7 @@ class ViewManager {
     } else {
       // Re-position cards once cabinet is sized
       requestAnimationFrame(() => {
-        if (window.wikiGamesArcade)
-          window.wikiGamesArcade.positionArcadeCards();
+        window.wikiGamesArcade?.positionArcadeCards();
       });
     }
 
@@ -97,8 +100,8 @@ class WikiGamesArcade {
     this.creditsDisplay = document.querySelector(".credits-display");
     this.insertCoinOverlay = document.getElementById("insertCoinOverlay");
     this.filterControls = document.getElementById("filterControls");
-    this.arcadeView = document.getElementById("arcadeCabinet"); // Cache arcade view
-    this.cabinet = document.querySelector(".arcade-cabinet"); // Cache cabinet
+    this.arcadeView = document.getElementById("arcadeCabinet");
+    this.cabinet = document.querySelector(".arcade-cabinet");
   }
 
   async loadGames() {
@@ -112,6 +115,7 @@ class WikiGamesArcade {
       this.mobileFilterActive = false;
 
       this.buildGridView();
+      this.ensureViewBuilt(window.viewManager.currentView);
       this.setupControls();
       this.setupFilters();
       this.updateCredits();
@@ -137,6 +141,9 @@ class WikiGamesArcade {
   }
 
   ensureViewBuilt(viewName) {
+    // Until games load, keep the loading or error message in place
+    if (this.games.length === 0) return;
+
     if (viewName === "scroll" && !this.scrollViewBuilt) {
       this.buildScrollView();
       this.scrollViewBuilt = true;
@@ -179,7 +186,6 @@ class WikiGamesArcade {
 
     this.gameCards.appendChild(fragment);
 
-    // Event delegation
     if (!this.arcadeCardsDelegated) {
       this.gameCards.addEventListener("click", (e) => {
         const card = e.target.closest(".arcade-game-card");
@@ -209,7 +215,7 @@ class WikiGamesArcade {
     let offsetPerCard = 100;
     if (isFullScreen) {
       const containerW = this.gameCards.offsetWidth;
-      const cardW = cards[0]?.offsetWidth ?? 0;
+      const cardW = cards[0].offsetWidth;
       if (containerW > 0 && cardW > 0) {
         // Show peek of adjacent card
         const peek = Math.max(40, cardW * 0.22);
@@ -227,12 +233,7 @@ class WikiGamesArcade {
       card.style.setProperty("--card-offset", distance * offsetPerCard);
       card.style.setProperty("--card-scale", isSelected ? 1 : 0.85);
       card.style.zIndex = isSelected ? 10 : Math.max(0, 5 - Math.abs(distance));
-
-      if (isSelected && !card.classList.contains("selected")) {
-        card.classList.add("selected");
-      } else if (!isSelected && card.classList.contains("selected")) {
-        card.classList.remove("selected");
-      }
+      card.classList.toggle("selected", isSelected);
     }
   }
 
@@ -264,7 +265,6 @@ class WikiGamesArcade {
 
     this.gameList.appendChild(fragment);
 
-    // Event delegation
     if (!this.scrollItemsDelegated) {
       this.gameList.addEventListener("click", (e) => {
         const item = e.target.closest(".game-item");
@@ -298,7 +298,6 @@ class WikiGamesArcade {
 
       item.style.setProperty("--distance", distance);
 
-      // Hide faraway items
       const isHidden = Math.abs(distance) > halfVisible;
       item.style.opacity = isHidden ? "0" : "";
       item.style.pointerEvents = isHidden ? "none" : "";
@@ -345,7 +344,7 @@ class WikiGamesArcade {
         : "";
 
     if (this.gameStatus) {
-      this.gameStatus.textContent = "Play Now";
+      this.gameStatus.textContent = "Press Start";
       this.gameStatus.className = "game-status";
       this.gameStatus.onclick = () => this.playGame(game);
     }
@@ -358,7 +357,6 @@ class WikiGamesArcade {
     const targetGame = game || this.games[this.selectedIndex];
     if (!targetGame) return;
 
-    // Check if arcade is active
     const inArcadeMode =
       this.arcadeView && this.arcadeView.style.display !== "none";
 
@@ -412,14 +410,14 @@ class WikiGamesArcade {
         ? `<div class="grid-game-author">By ${game.author}</div>`
         : "";
 
-      const tagLabels = {
-        "wikigamejam-nyc-2025": "NYC '25",
-        "wikigamejam-sf-2026": "SF '26",
-      };
-      const tagsHtml =
-        game.tags && game.tags.length > 0
-          ? `<div class="game-tags">${game.tags.map((tag) => `<span class="tag" data-tag="${tag}">${tagLabels[tag] || tag}</span>`).join("")}</div>`
-          : "";
+      let tagsHtml = "";
+      if (game.tags && game.tags.length > 0) {
+        const tagSpans = game.tags.map((tag) => {
+          const label = TAG_LABELS[tag] || tag;
+          return `<span class="tag" data-tag="${tag}">${label}</span>`;
+        });
+        tagsHtml = `<div class="game-tags">${tagSpans.join("")}</div>`;
+      }
 
       const imgLoading = i < 6 ? "eager" : "lazy";
 
@@ -440,7 +438,6 @@ class WikiGamesArcade {
 
     this.gamesGrid.appendChild(fragment);
 
-    // Apply current filter state
     this.filterGridView();
   }
 
@@ -468,8 +465,8 @@ class WikiGamesArcade {
         noResults = document.createElement("div");
         noResults.className = "no-results";
         noResults.innerHTML = `
-                    <p>No games found for this filter.</p>
-                    <p>Try selecting a different category.</p>
+                    <p>No games found</p>
+                    <p>Try another category.</p>
                 `;
         this.gamesGrid.appendChild(noResults);
       }
@@ -489,6 +486,11 @@ class WikiGamesArcade {
         if (e.target.checked) {
           this.currentFilter = e.target.value;
           this.filterGridView();
+          // On phones the pills scroll sideways; keep the chosen one in view
+          e.target.labels[0].scrollIntoView({
+            block: "nearest",
+            inline: "nearest",
+          });
         }
       });
     });
@@ -517,7 +519,6 @@ class WikiGamesArcade {
     this.positionScrollItems();
     this.updateButtons();
 
-    // Reset throttle
     setTimeout(() => {
       this.isTransitioning = false;
     }, 150);
@@ -649,28 +650,35 @@ class WikiGamesArcade {
 
   handleKeys(e) {
     const key = e.key;
+
+    if (key === "c" || key === "C") {
+      this.addCoin();
+      return;
+    }
+    if (key === "p" || key === "P") {
+      this.togglePower();
+      return;
+    }
+
     const view = window.viewManager?.currentView;
+    if (view !== "arcade" && view !== "scroll") return;
+
+    const inArcade = view === "arcade";
+    const canMove = !inArcade || this.isPowered;
 
     if (key === "ArrowUp" || key === "ArrowLeft") {
-      // Only in navigable views
-      if (view !== "arcade" && view !== "scroll") return;
       e.preventDefault();
-      if (view === "arcade") this.pressButton("left");
-      if (view === "scroll" || this.isPowered) this.move("prev");
+      if (inArcade) this.pressButton("left");
+      if (canMove) this.move("prev");
     } else if (key === "ArrowDown" || key === "ArrowRight") {
-      if (view !== "arcade" && view !== "scroll") return;
       e.preventDefault();
-      if (view === "arcade") this.pressButton("right");
-      if (view === "scroll" || this.isPowered) this.move("next");
+      if (inArcade) this.pressButton("right");
+      if (canMove) this.move("next");
     } else if (key === "Enter" || key === " ") {
-      if (view !== "arcade" && view !== "scroll") return;
+      if (e.target.closest("button, a, input")) return;
       e.preventDefault();
-      if (view === "arcade") this.pressButton("play");
+      if (inArcade) this.pressButton("play");
       if (this.isPowered) this.playGame();
-    } else if (key === "c" || key === "C") {
-      this.addCoin();
-    } else if (key === "p" || key === "P") {
-      this.togglePower();
     }
   }
 
@@ -678,13 +686,10 @@ class WikiGamesArcade {
     if (this.resizeTimer) clearTimeout(this.resizeTimer);
 
     this.resizeTimer = setTimeout(() => {
-      // Update visible view
-      if (window.viewManager && window.viewManager.currentView === "arcade") {
+      const view = window.viewManager?.currentView;
+      if (view === "arcade") {
         this.positionArcadeCards();
-      } else if (
-        window.viewManager &&
-        window.viewManager.currentView === "scroll"
-      ) {
+      } else if (view === "scroll") {
         this.positionScrollItems();
       }
       this.resizeTimer = null;
@@ -710,14 +715,14 @@ class WikiGamesArcade {
   showError() {
     const errorMsg = `
             <div class="no-results">
-                <p>The games could not be loaded.</p>
-                <p>Refresh the page to try again.</p>
+                <p>Game over</p>
+                <p>The games couldn't load. Refresh the page to continue.</p>
             </div>
         `;
 
-    [this.gameCards, this.gamesGrid, this.gameList]
-      .filter((el) => el)
-      .forEach((el) => (el.innerHTML = errorMsg));
+    for (const el of [this.gameCards, this.gamesGrid, this.gameList]) {
+      if (el) el.innerHTML = errorMsg;
+    }
   }
 
   togglePower() {
@@ -776,13 +781,13 @@ class WikiGamesArcade {
   }
 
   updateCredits(flash = false) {
-    if (this.creditsDisplay) {
-      this.creditsDisplay.textContent = `Credits: ${this.credits}`;
-      if (flash) {
-        this.creditsDisplay.classList.remove("credits-flash");
-        void this.creditsDisplay.offsetWidth;
-        this.creditsDisplay.classList.add("credits-flash");
-      }
+    if (!this.creditsDisplay) return;
+
+    this.creditsDisplay.textContent = `Credits: ${this.credits}`;
+    if (flash) {
+      this.creditsDisplay.classList.remove("credits-flash");
+      void this.creditsDisplay.offsetWidth;
+      this.creditsDisplay.classList.add("credits-flash");
     }
   }
 }
@@ -800,18 +805,18 @@ function initSpaceMarquee() {
   // Build randomised star field
   const frag = document.createDocumentFragment();
   for (let i = 0; i < 140; i++) {
-    const s = document.createElement("div");
+    const star = document.createElement("div");
     const size = 0.4 + Math.random() * 2.2;
     const opacity = 0.2 + Math.random() * 0.75;
 
-    s.className = "space-star";
-    s.style.cssText =
+    star.className = "space-star";
+    star.style.cssText =
       `left:${(Math.random() * 100).toFixed(2)}%;` +
       `top:${(Math.random() * 100).toFixed(2)}%;` +
       `width:${size.toFixed(2)}px;height:${size.toFixed(2)}px;` +
       `opacity:${opacity.toFixed(2)};`;
 
-    frag.appendChild(s);
+    frag.appendChild(star);
   }
   starsEl.appendChild(frag);
 }
