@@ -197,7 +197,7 @@
       "name": "Linkshot",
       "emoji": "🔗",
       "subtitle": "Wikipedia Slingshot Platformer",
-      "description": "Fling a ball up a 3D staircase built from an article's own words, and land on a link to teleport there.",
+      "description": "Slingshot a ball up a 3D staircase made of a whole Wikipedia article: light up words for points, collect links to travel, and climb the daily leaderboard.",
       "author": "SimonSoliloquy",
       "preview": "linkshot.png",
       "status": "available",
