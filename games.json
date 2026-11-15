@@ -539,6 +539,18 @@
       "status": "available",
       "url": "https://wikiboard.org/",
       "tags": ["exploration"]
+    },
+    {
+      "id": "wikissey",
+      "name": "Wikissey",
+      "emoji": "🏁",
+      "subtitle": "Wikipedia Races and Weekly Tournaments",
+      "description": "Race from one Wikipedia article to another using only the links. One daily pair for everyone, private games with friends, and Wikissey Weekly, a Saturday tournament you can watch live. English and French.",
+      "author": "Haz & Lagoule",
+      "preview": "wikissey.png",
+      "status": "available",
+      "url": "https://www.wikissey.com/",
+      "tags": ["wikirace", "daily", "mobile"]
     }
   ]
 }
