@@ -193,6 +193,18 @@
       "tags": ["trivia", "wikigamejam-nyc-2025"]
     },
     {
+      "id": "linkshot",
+      "name": "Linkshot",
+      "emoji": "🔗",
+      "subtitle": "Wikipedia Slingshot Platformer",
+      "description": "Slingshot a ball up a 3D staircase made of a whole featured Wikipedia article: light up words for points, collect links to travel, and climb the daily leaderboard.",
+      "author": "SimonSoliloquy",
+      "preview": "linkshot.png",
+      "status": "available",
+      "url": "https://wiki-linkshot.vercel.app/",
+      "tags": ["arcade", "wikirace", "daily", "mobile"]
+    },
+    {
       "id": "mindpalace",
       "name": "Mind Palace",
       "emoji": "🧠",
